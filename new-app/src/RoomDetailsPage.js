@@ -4,12 +4,18 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
+
+/*
+This is an example of
+*/
+
 const RoomDetailsPage = () => {
   const { roomId } = useParams();
   const [room, setRoom] = useState(null);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [name, setName] = useState('');
+  const [bookedDates, setBookedDates] = useState([]);
 
   function clampTwoSetsOfTwoDates(date1Start, date1End, date2Start, date2End) {
     return (date2Start.getTime() <= date1Start.getTime() && date1Start.getTime() <= date2End.getTime()) ||
@@ -17,6 +23,19 @@ const RoomDetailsPage = () => {
       (date1Start.getTime() <= date2Start.getTime() && date2Start.getTime() <= date1Start.getTime()) ||
       (date1Start.getTime() <= date2End.getTime() && date2End.getTime() <= date1End.getTime());
   }
+
+  const getRangeOfDates = (startDate, endDate) => {
+    const dates = [];
+    const currentDate = moment(startDate);
+    const lastDate = moment(endDate);
+
+    while (currentDate <= lastDate) {
+      dates.push(new Date(currentDate));
+      currentDate.add(1, 'day');
+    }
+
+    return dates;
+  };
 
   useEffect(() => {
     const fetchRoomDetails = async () => {
@@ -28,7 +47,17 @@ const RoomDetailsPage = () => {
       }
     };
 
+    const fetchBookedDates = async () => {
+      try {
+        const response = await axios.get(`http://localhost:4000/api/rooms/${roomId}/excludeDates`);
+        setBookedDates(response.data);
+      } catch (error) {
+        console.error('Failed to fetch booked dates', error);
+      }
+    };
+
     fetchRoomDetails();
+    fetchBookedDates();
   }, [roomId]);
 
   const handleBookingSubmit = async (event) => {
@@ -94,9 +123,15 @@ const RoomDetailsPage = () => {
   if (!room) {
     return <div>Loading...</div>;
   }
-
+  const datePickerStyles = `
+  .react-datepicker__day--disabled {
+    color: red;
+    cursor: not-allowed;
+  }
+`;
   return (
     <div className="room-details-page" style={{ display: 'flex', justifyContent: 'center' }}>
+       <style>{datePickerStyles}</style>
       <div style={{ width: '50%', minWidth: '400px' }}>
         <h2>{room.name}</h2>
         <p>{room.description}</p>
@@ -110,27 +145,29 @@ const RoomDetailsPage = () => {
           <form onSubmit={handleBookingSubmit}>
             <label htmlFor="startDate">Start Date:</label>
             <DatePicker
-              id="startDate"
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              startDate={startDate}
-              endDate={endDate}
-              minDate={moment()}
-              required
-              dateFormat="dd/MM/yyyy"
-            />
+     id="startDate"
+     selected={startDate}
+     onChange={(date) => setStartDate(date)}
+     startDate={startDate}
+     endDate={endDate}
+     minDate={moment()}
+     required
+     dateFormat="dd/MM/yyyy"
+     excludeDates={bookedDates.map((booking) => getRangeOfDates(booking.startDate, booking.endDate)).flat()}
+   />
             <br />
             <label htmlFor="endDate">End Date:</label>
             <DatePicker
-              id="endDate"
-              selected={endDate}
-              onChange={(date) => setEndDate(date)}
-              startDate={startDate}
-              endDate={endDate}
-              minDate={moment().add(1, 'days')}
-              required
-              dateFormat="dd/MM/yyyy"
-            />
+     id="endDate"
+     selected={endDate}
+     onChange={(date) => setEndDate(date)}
+     startDate={startDate}
+     endDate={endDate}
+     minDate={moment().add(1, 'days')}
+     required
+     dateFormat="dd/MM/yyyy"
+     excludeDates={bookedDates.map((booking) => getRangeOfDates(booking.startDate, booking.endDate)).flat()}
+   />
             <br />
             <label htmlFor="name">Name:</label>
             <input
@@ -147,57 +184,6 @@ const RoomDetailsPage = () => {
       </div>
     </div>
   );
-  /*
-  return (
-    <div className="room-details-page">
-      <h2>{room.name}</h2>
-      <p>{room.description}</p>
-      <p>Type: {room.type}</p>
-      <p>Price: {room.costPerDay}</p>
-      {room.images.map((photo, index) => (
-        <img key={index} src={`${process.env.PUBLIC_URL}/roompage_pictures/${photo}`} alt={`Room ${room.name}, ${index + 1} view`} />
-      ))}
-      <div className="booking-form">
-        <h3>Book this room</h3>
-        <form onSubmit={handleBookingSubmit}>
-          <label htmlFor="startDate">Start Date:</label>
-          <DatePicker
-            id="startDate"
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-            startDate={startDate}
-            endDate={endDate}
-            minDate={moment()}
-            required
-          />
-          <br />
-          <label htmlFor="endDate">End Date:</label>
-          <DatePicker
-            id="endDate"
-            selected={endDate}
-            onChange={(date) => setEndDate(date)}
-            startDate={startDate}
-            endDate={endDate}
-            minDate={moment().add(1, 'days')}
-            required
-          />
-          <br />
-          <label htmlFor="name">Name:</label>
-          <input
-            id="name"
-            type="text"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            required
-          />
-          <br />
-          <button type="submit">Book</button>
-        </form>
-      </div>
-    </div>
-  );*/
-
-
 };
 
 export default RoomDetailsPage;

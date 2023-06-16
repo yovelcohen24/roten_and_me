@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import HomePage from './HomePage';
 import RoomPage from './RoomPage';
-import RoomDetailsPage from './RoomDetailsPagefuck';
+import RoomDetailsPage from './RoomDetailsPage';
 import NotFoundPage from './NotFoundPage';
 import AboutUsPage from './AboutUs'; // Import the AboutUsPage component
 
