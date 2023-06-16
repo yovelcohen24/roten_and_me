@@ -96,10 +96,10 @@ const RoomDetailsPage = () => {
       console.log(`Booking: ${booking}, dates: ${bookingStartDate} -> ${bookingEndDate}, selected: ${selectedStartDate} -> ${selectedEndDate}`);
       console.log('condition state: ' + (booking.name === room.name && !(bookingEndDate > selectedStartDate || bookingStartDate < selectedEndDate)));
       return (
-        booking.name === room.name && // bookingenddate > selectedstartdate OR bookingstartdate < selectedenddate
+        booking.name === room.name && 
+        // bookingenddate > selectedstartdate OR bookingstartdate < selectedenddate
         //!(bookingEndDate > selectedStartDate || bookingStartDate < selectedEndDate)
-        // chat bug piss tea is obviously incapable of devising  condition.
-       // attmpet 100:
+        // .you know what. is obviously incapable of devising  condition.
        checkOverlapBtwnTwoDateRanges(selectedStartDate, selectedEndDate, bookingStartDate, bookingEndDate)
       );
 
