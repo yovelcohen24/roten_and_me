@@ -17,7 +17,8 @@ const RoomDetailsPage = () => {
   const [name, setName] = useState('');
   const [bookedDates, setBookedDates] = useState([]);
 
-  function clampTwoSetsOfTwoDates(date1Start, date1End, date2Start, date2End) {
+  function checkOverlapBtwnTwoDateRanges(date1Start, date1End, date2Start, date2End) {
+    // This function receives two ranges of dates, checks if either range is within the other.
     return (date2Start.getTime() <= date1Start.getTime() && date1Start.getTime() <= date2End.getTime()) ||
       (date2Start.getTime() <= date1End.getTime() && date1End.getTime() <= date2End.getTime()) ||
       (date1Start.getTime() <= date2Start.getTime() && date2Start.getTime() <= date1Start.getTime()) ||
@@ -25,6 +26,8 @@ const RoomDetailsPage = () => {
   }
 
   const getRangeOfDates = (startDate, endDate) => {
+    // Arguments: startDate, endDate.
+    // Returns: A list of dates in the range.
     const dates = [];
     const currentDate = moment(startDate);
     const lastDate = moment(endDate);
@@ -39,6 +42,7 @@ const RoomDetailsPage = () => {
 
   useEffect(() => {
     const fetchRoomDetails = async () => {
+      // This function calls an API request to fetch a room, sets the room using the state variable.
       try {
         const response = await axios.get(`http://localhost:4000/api/rooms/${roomId}`);
         setRoom(response.data);
@@ -48,6 +52,9 @@ const RoomDetailsPage = () => {
     };
 
     const fetchBookedDates = async () => {
+      // Input: None, de-facto this function uses the roomId variable (originates in another component).
+      // This function calls an API request to fetch all booking date ranges for the given room, 
+      // sets the room using the state variable.
       try {
         const response = await axios.get(`http://localhost:4000/api/rooms/${roomId}/excludeDates`);
         setBookedDates(response.data);
@@ -55,7 +62,6 @@ const RoomDetailsPage = () => {
         console.error('Failed to fetch booked dates', error);
       }
     };
-
     fetchRoomDetails();
     fetchBookedDates();
   }, [roomId]);
@@ -68,6 +74,13 @@ const RoomDetailsPage = () => {
 
     // Calculate total cost
     const totalCost = numberOfDays * room.costPerDay;
+
+    //////////////////////////////////////////////////////////////////////////
+    // Very important for the future: 
+    // This region of the code should be removed.
+    // Handling overlapping bookings is currently done via the DatePicker "object".
+    //////////////////////////////////////////////////////////////////////////
+
     console.log("Calling bookings api for checking for overlap!")
     // Check if room is available for selected dates
     const bookingsResponse = await axios.get(`http://localhost:4000/api/bookings/${room.name}`);
@@ -83,11 +96,11 @@ const RoomDetailsPage = () => {
       console.log(`Booking: ${booking}, dates: ${bookingStartDate} -> ${bookingEndDate}, selected: ${selectedStartDate} -> ${selectedEndDate}`);
       console.log('condition state: ' + (booking.name === room.name && !(bookingEndDate > selectedStartDate || bookingStartDate < selectedEndDate)));
       return (
-        booking.name === room.name && // bookingenddate > selectedstartdate OR bookingstartdate < selectedenddate
+        booking.name === room.name && 
+        // bookingenddate > selectedstartdate OR bookingstartdate < selectedenddate
         //!(bookingEndDate > selectedStartDate || bookingStartDate < selectedEndDate)
-        // chat bug piss tea is obviously incapable of devising  condition.
-       // attmpet 100:
-       clampTwoSetsOfTwoDates(selectedStartDate, selectedEndDate, bookingStartDate, bookingEndDate)
+        // .you know what. is obviously incapable of devising  condition.
+       checkOverlapBtwnTwoDateRanges(selectedStartDate, selectedEndDate, bookingStartDate, bookingEndDate)
       );
 
 
@@ -103,6 +116,12 @@ const RoomDetailsPage = () => {
 
     }
     console.log("Calling booking(!) api to create new booking!")
+
+    //////////////////////////////////////////////////////////////////////////
+    // End of code-area-to-be-removed
+    //////////////////////////////////////////////////////////////////////////
+
+
     // Submit booking
     try {
       const bookingResponse = await axios.post('http://localhost:4000/api/bookings', {
@@ -123,12 +142,13 @@ const RoomDetailsPage = () => {
   if (!room) {
     return <div>Loading...</div>;
   }
+  // currently CSS is injected to forbid choosing invalid dates.
   const datePickerStyles = `
-  .react-datepicker__day--disabled {
-    color: red;
-    cursor: not-allowed;
-  }
-`;
+    .react-datepicker__day--disabled {
+      color: red;
+      cursor: not-allowed;
+    }
+  `;
   return (
     <div className="room-details-page" style={{ display: 'flex', justifyContent: 'center' }}>
        <style>{datePickerStyles}</style>
