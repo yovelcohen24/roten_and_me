@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { getRangeOfDates } from './Helpers';
 
-const BookingForm = ({ startDate, endDate, bookedDates, handleBookingSubmit, setStartDate, setEndDate, setName, name }) => {
+const BookingForm = ({ startDate, endDate, bookedDates, handleBookingSubmit, setStartDate, setEndDate, setName, name , numOfPeople, setNumOfPeople}) => {
   return (
 <div className="booking-form">
           <h3>Book this room</h3>
@@ -40,6 +40,16 @@ const BookingForm = ({ startDate, endDate, bookedDates, handleBookingSubmit, set
               type="text"
               value={name}
               onChange={(event) => setName(event.target.value)}
+              required
+            />
+            <br />
+            <br />
+            <label htmlFor="Number of people: ">Number of people (over 2 year old): </label>
+            <input
+              id="numberOfPeople"
+              type="text"
+              value={numOfPeople}
+              onChange={(event) => setNumOfPeople(event.target.value)}
               required
             />
             <br />

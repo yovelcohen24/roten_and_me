@@ -27,21 +27,21 @@ const adminLogin =  async (req, res) => {
     res.json({ message: 'Login successful' });
   };
 
-const checkSession =  (req, res) => {
-    if (req.session.adminId) {
-      // Admin is authenticated
-      res.json({ isAdminAuthenticated: true });
-    } else {
-      // Admin is not authenticated
-      res.json({ isAdminAuthenticated: false });
-    }
-  };
-
+const checkSession = (req, res) => {
+  if (req.session.adminId) {
+    // Admin is authenticated
+    res.json({ isAdminAuthenticated: true });
+  } else {
+    // Admin is not authenticated
+    res.json({ isAdminAuthenticated: false });
+  }
+};
 module.exports = {
     adminLogin,
     checkSession,
 };
 
+// marked for deletion
 const createAdmin = async () => {
       // Hash the password
   const saltRounds = 10;

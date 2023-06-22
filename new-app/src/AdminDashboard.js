@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import ModifyRoomDetails from './components/ModifyRoomDetails';
 import AddRoom from './components/AddRoom';
+import AddPromotion from './components/AddPromotion';
 
 const Dashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -44,7 +45,9 @@ const Dashboard = () => {
           <div>
             <AddRoom/>
           </div>
-
+          <div>
+            <AddPromotion/>
+          </div>
         </div>
       ) : (
         <p>Loading...</p>

@@ -112,7 +112,7 @@ const AddRoom = () => {
        onChange={(e) => setSalePriceFactor(parseFloat(e.target.value))}
      />
 
-     <button type="submit">Add Room</button>
+     <button type="submit">Submit</button>
    </form>
    <p>
     {inputValidation}

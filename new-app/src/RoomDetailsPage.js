@@ -14,8 +14,10 @@ const RoomDetailsPage = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [name, setName] = useState('');
+  const [numOfPeople, setNumOfPeople] = useState(1);
+
   const [bookedDates, setBookedDates] = useState([]);
-const history = useHistory();
+  const history = useHistory();
 
 
   useEffect(() => {
@@ -95,11 +97,11 @@ const history = useHistory();
     }
     console.log("Calling booking(!) api to create new booking!")
 
-    if(startDate.getTime() < (new Date()).getTime()){
+    if(startDate.getDate() < (new Date()).getDate()){
       alert('Please choose a future date!');
       return;
     }
-    if(startDate.getTime() < endDate.getTime()){
+    if(startDate.getTime() > endDate.getTime()){
       alert('End date must be after start date!');
       return;
     }
@@ -150,7 +152,11 @@ const history = useHistory();
           setStartDate={setStartDate}
           setEndDate={setEndDate}
           setName={setName}
-          name={name}/>
+          name={name}
+          numOfPeople={numOfPeople}
+          setNumOfPeople={setNumOfPeople}
+          
+          />
       </div>
     </div>
   );

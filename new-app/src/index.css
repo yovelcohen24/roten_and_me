@@ -21,6 +21,7 @@
 }
 
 .home_page_title {
+  background-image: url('./homepage_pictures/sitew.jpg');
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,7 +35,13 @@
 .home_page_title h1:hover {
   color: #d41313; /* Change font color when hovering over the title */
 }
+.home_page_title h2 {
+  transition: color 0.3s; /* Add transition for smooth color change */
+}
 
+.home_page_title h2:hover {
+  color: red; /* Change font color to red when hovering over the heading */
+}
 .image_container {
   position: relative;
   margin: 20px;
@@ -46,28 +53,388 @@
   object-fit: cover;
 }
 
-.arrow_container {
+.contact_info {
+  margin-top: 20px;
+}
+
+.map_container {
+  position: relative;
+  margin-top: 20px;
+}
+
+.map_link {
+  display: inline-block;
+  position: relative;
+}
+
+.map_image {
+  width: 400px;
+  height: auto;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.map_text {
   position: absolute;
   top: 50%;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  pointer-events: none; /* Prevent text from blocking the image click */
+}
+
+.promotions_section {
+  margin-top: 40px;
+}
+
+.promotions_container {
   display: flex;
   justify-content: space-between;
-  transform: translateY(-50%);
+  align-items: center;
+
 }
 
-.arrow_button {
-  font-size: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #000;
+.promotion_item {
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.left_arrow {
+.promotion_title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.promotion_description {
+  font-size: 16px;
+  color: #555;
+}
+
+.promotion_arrows {
+  margin-top: 20px;
+}
+
+.promotion_button {
   margin-right: 10px;
+  padding: 8px 16px;
+  background-color: #29d8c4a5;
+  color: #ffffffba;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.right_arrow {
-  margin-left: 10px;
+.promotion_button:hover {
+  background-color: #555555be;
+}
+
+
+
+.room_button_container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.room_button {
+  padding: 12px 24px;
+  background-color: rgb(13, 109, 154);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.room_button:hover {
+  background-color: rgba(110, 94, 50, 0.781);
+}
+
+
+.room_button:nth-child(even) {
+  background-color: #eaeaea;
+}
+
+.promotion_button:hover {
+  background-color: #d3d3d3;
+}
+
+.room_button:hover {
+  background-color: #d3d3d3;
+}
+
+.testimonial_section {
+  margin-top: 40px;
+}
+
+.testimonial {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial p {
+  margin-bottom: 10px;
+}
+
+.testimonial-details {
+  font-size: 14px;
+  color: #888;
+}
+#opinions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 40px;
+}
+
+#opinions h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+#opinions h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+#opinions h2:hover {
+  color: red;
+}
+
+
+.testimonial_item {
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial_item p {
+  font-size: 16px;
+  color: #666;
+}
+
+.testimonial_item .author {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Additional styles for visual enhancement */
+.testimonial_item {
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonial_item:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.testimonial_item:hover:before {
+  opacity: 1;
+}
+
+.testimonial_item:hover p,
+.testimonial_item:hover .author {
+  color: #fff;
+}
+
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f2f2f2;
+  padding: 10px;
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar li {
+  margin-right: 20px;
+}
+
+.navbar li:last-child {
+  margin-right: 0;
+}
+
+.navbar li a {
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.navbar li a:hover {
+  background-color: #ccc;
+}
+
+.wide_bnb_image {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+}
+
+.info_table {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.info_table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.image_container {
+  width: 100%;
+  max-width: 800px;
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+}
+
+.image_container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info_table {
+  width: 100%;
+  max-width: 800px;
+  margin-top: 20px;
+}
+
+.table_row {
+  display: flex;
+}
+
+.table_cell {
+  flex: 1;
+  padding: 10px;
+  background-color: #f8f8f8;
+}
+
+.field {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.content {
+  margin-bottom: 10px;
+}
+
+.places-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.place-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.place-image {
+  flex: 0 0 100%;
+  text-align: center;
+  height: 300px; /* Set a fixed height for the container */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.place-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.place-info {
+  margin-top: 20px;
+}
+
+.carousel-arrow {
+  background-color: transparent;
+  border: none;
+  color: #333;
+  font-size: 24px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.carousel-arrow:hover {
+  color: #777; /* Change the color to your desired hover color */
+}
+
+.places-carousel .place-item {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.places-carousel .place-image {
+  width: 100%;
+}
+
+.places-carousel .place-image img {
+  width: 100%;
+  height: auto;
+  max-height: 300px; /* Adjust the maximum height as needed */
+}
+
+.places-carousel .carousel-arrow {
+  font-size: 36px;
+  background-color: transparent;
+  border: none;
+  color: #333;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: color 0.3s; /* Add transition for smooth color change */
+}
+
+.places-carousel .carousel-arrow:hover {
+  color: #777; /* Change the color to your desired hover color */
+}
+.room-details-page {
+  display: flex;
+  justify-content: center;
+  background-image: url('./homepage_pictures/harmiron.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
 }

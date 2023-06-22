@@ -5,30 +5,33 @@ import HomePage from './HomePage';
 import RoomPage from './RoomPage';
 import RoomDetailsPage from './RoomDetailsPage';
 import NotFoundPage from './NotFoundPage';
-import AboutUsPage from './AboutUs'; // Import the AboutUsPage component
+import AboutUsPage from './AboutUs';
+import './App.css';
+
 import LoginPage from './LoginPage';
 import Dashboard from './AdminDashboard';
 
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="App-header">
         <nav>
-          <ul>
+          <ul className="App-nav">
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/" className="App-link">Home</Link>
             </li>
             <li>
-              <Link to="/rooms">Room selection</Link>
+              <Link to="/rooms" className="App-link">Room selection</Link>
             </li>
             <li>
-              <Link to="/about">About Us</Link> {/* Add a link to the About Us page */}
+              <Link to="/about" className="App-link">About Us</Link>
             </li>
           </ul>
         </nav>
+        </div>
 
         <Switch>
-          <Route exact path="/" component={HomePage} />
+        <Route exact path="/" render={(props) => <HomePage {...props} />} />
           <Route exact path="/rooms" component={RoomPage} />
           <Route path="/rooms/:roomId" component={RoomDetailsPage} />
           <Route path="/about" component={AboutUsPage} /> {/* Add a route for the About Us page */}
@@ -36,7 +39,6 @@ function App() {
           <Route path="/admin/dashboard" component={Dashboard} />
           <Route component={NotFoundPage} />
         </Switch>
-      </div>
     </Router>
   );
 }
