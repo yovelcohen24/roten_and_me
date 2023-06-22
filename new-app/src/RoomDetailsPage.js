@@ -99,7 +99,10 @@ const history = useHistory();
       alert('Please choose a future date!');
       return;
     }
-
+    if(startDate.getTime() < endDate.getTime()){
+      alert('End date must be after start date!');
+      return;
+    }
     //////////////////////////////////////////////////////////////////////////
     // End of code-area-to-be-removed
     //////////////////////////////////////////////////////////////////////////
