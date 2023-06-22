@@ -23,7 +23,7 @@ const HomePage = () => {
       prevIndex === 0 ? bnbImages.length - 1 : prevIndex - 1
     );
   };
-
+  console.log('test');
   return (
     <div className='home_page_title'>
       <h1>ברוכים הבאים לצימרים בר יוחאי </h1>

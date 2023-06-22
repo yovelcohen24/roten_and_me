@@ -6,6 +6,8 @@ import RoomPage from './RoomPage';
 import RoomDetailsPage from './RoomDetailsPage';
 import NotFoundPage from './NotFoundPage';
 import AboutUsPage from './AboutUs'; // Import the AboutUsPage component
+import LoginPage from './LoginPage';
+import Dashboard from './AdminDashboard';
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
           <Route exact path="/rooms" component={RoomPage} />
           <Route path="/rooms/:roomId" component={RoomDetailsPage} />
           <Route path="/about" component={AboutUsPage} /> {/* Add a route for the About Us page */}
+          <Route path="/admin/login" component={LoginPage} />
+          <Route path="/admin/dashboard" component={Dashboard} />
           <Route component={NotFoundPage} />
         </Switch>
       </div>

@@ -3,9 +3,19 @@ const moment = require('moment');
 const Room = require('../models/room');
 const Booking = require('../models/booking');
 
+/*
+ bookingSchema
+  roomName: String,
+  startDate: Date,
+  endDate: Date,
+  rentedBy: String,
+  roomId: String,
+  totalCost: Number
+*/
+
 const createBooking = async (req, res) => {
   const {
-    name,
+    roomName,
     startDate,
     endDate,
     rentedBy,
@@ -26,7 +36,7 @@ const createBooking = async (req, res) => {
   }
 
   const booking = new Booking({
-    name,
+    roomName,
     startDate,
     endDate,
     rentedBy,
