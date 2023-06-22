@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import ModifyRoomDetails from './components/ModifyRoomDetails';
 import AddRoom from './components/AddRoom';
@@ -8,6 +8,16 @@ const Dashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [selectedRoomId, setSelectedRoomId] = useState(null);
   const history = useHistory();
+
+  const handleLogout = useCallback(() => {
+    // Clear the authentication status and other stored data from local storage
+    localStorage.removeItem('isAdminAuthenticated');
+    localStorage.removeItem('loginDateTime');
+    localStorage.removeItem('userIP');
+
+    // Redirect to the login page
+    history.push('/admin/login');
+  }, [history]);
 
   useEffect(() => {
     // Check the authentication status from local storage
@@ -26,9 +36,9 @@ const Dashboard = () => {
 
     // Redirect to login if the stored date is not within 7 days
     if (!isWithin7Days) {
-      history.push('/admin/login');
+      handleLogout(); // Redirect to login
     }
-  }, [history]);
+  }, [handleLogout]);
 
   const handleRoomSelection = (roomId) => {
     setSelectedRoomId(roomId);
@@ -39,14 +49,15 @@ const Dashboard = () => {
       {isAdmin ? (
         <div>
           <h2>Admin Dashboard</h2>
+          <button onClick={handleLogout}>Logout</button>
           <div>
-            <ModifyRoomDetails onRoomSelect={handleRoomSelection} selectedRoomId={selectedRoomId}/>
+            <ModifyRoomDetails onRoomSelect={handleRoomSelection} selectedRoomId={selectedRoomId} />
           </div>
           <div>
-            <AddRoom/>
+            <AddRoom />
           </div>
           <div>
-            <AddPromotion/>
+            <AddPromotion />
           </div>
         </div>
       ) : (
