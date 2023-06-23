@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
+import { checkOverlapBtwnTwoDateRanges } from './components/RoomDetailsPage/Helpers';
+import RoomDetails from './components/RoomDetailsPage/RoomDetails';
+import BookingForm from './components/RoomDetailsPage/BookingForm';
+import { useHistory } from 'react-router-dom';
 
-/*
-This is an example of
-*/
+import 'tailwindcss/tailwind.css';
 
 const RoomDetailsPage = () => {
   const { roomId } = useParams();
@@ -15,30 +16,11 @@ const RoomDetailsPage = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [name, setName] = useState('');
+  const [numOfPeople, setNumOfPeople] = useState(1);
+
   const [bookedDates, setBookedDates] = useState([]);
+  const history = useHistory();
 
-  function checkOverlapBtwnTwoDateRanges(date1Start, date1End, date2Start, date2End) {
-    // This function receives two ranges of dates, checks if either range is within the other.
-    return (date2Start.getTime() <= date1Start.getTime() && date1Start.getTime() <= date2End.getTime()) ||
-      (date2Start.getTime() <= date1End.getTime() && date1End.getTime() <= date2End.getTime()) ||
-      (date1Start.getTime() <= date2Start.getTime() && date2Start.getTime() <= date1Start.getTime()) ||
-      (date1Start.getTime() <= date2End.getTime() && date2End.getTime() <= date1End.getTime());
-  }
-
-  const getRangeOfDates = (startDate, endDate) => {
-    // Arguments: startDate, endDate.
-    // Returns: A list of dates in the range.
-    const dates = [];
-    const currentDate = moment(startDate);
-    const lastDate = moment(endDate);
-
-    while (currentDate <= lastDate) {
-      dates.push(new Date(currentDate));
-      currentDate.add(1, 'day');
-    }
-
-    return dates;
-  };
 
   useEffect(() => {
     const fetchRoomDetails = async () => {
@@ -100,7 +82,7 @@ const RoomDetailsPage = () => {
         // bookingenddate > selectedstartdate OR bookingstartdate < selectedenddate
         //!(bookingEndDate > selectedStartDate || bookingStartDate < selectedEndDate)
         // .you know what. is obviously incapable of devising  condition.
-       checkOverlapBtwnTwoDateRanges(selectedStartDate, selectedEndDate, bookingStartDate, bookingEndDate)
+        checkOverlapBtwnTwoDateRanges(selectedStartDate, selectedEndDate, bookingStartDate, bookingEndDate)
       );
 
 
@@ -116,7 +98,18 @@ const RoomDetailsPage = () => {
 
     }
     console.log("Calling booking(!) api to create new booking!")
+    const fuckingToday = (new Date());
+    fuckingToday.setHours(0,0,0,0);
+    console.log("fycking start date: " + startDate + " fucking curernt dlate: " + fuckingToday);
 
+    if(!(startDate.getTime() >= fuckingToday.getTime())){
+      alert('Please choose a future date!');
+      return;
+    }
+    if(startDate.getTime() > endDate.getTime()){
+      alert('End date must be after start date!');
+      return;
+    }
     //////////////////////////////////////////////////////////////////////////
     // End of code-area-to-be-removed
     //////////////////////////////////////////////////////////////////////////
@@ -125,14 +118,16 @@ const RoomDetailsPage = () => {
     // Submit booking
     try {
       const bookingResponse = await axios.post('http://localhost:4000/api/bookings', {
-        name: room.name,
+        roomName: room.name,
         startDate: startDate,
         endDate: endDate,
         rentedBy: name,
         roomId: roomId,
+        totalCost: totalCost,
       });
       alert('Booking submitted successfully!');
       console.log("Booking created, response: " + JSON.stringify( bookingResponse ));
+      history.goBack();
     } catch (error) {
       console.error('Failed to submit booking', error);
       alert('Failed to submit booking');
@@ -150,60 +145,41 @@ const RoomDetailsPage = () => {
     }
   `;
   return (
-    <div className="room-details-page" style={{ display: 'flex', justifyContent: 'center' }}>
-       <style>{datePickerStyles}</style>
-      <div style={{ width: '50%', minWidth: '400px' }}>
-        <h2>{room.name}</h2>
-        <p>{room.description}</p>
-        <p>Type: {room.type}</p>
-        <p>Price: {room.costPerDay}</p>
-        {room.images.map((photo, index) => (
-          <img key={index} src={`${process.env.PUBLIC_URL}/roompage_pictures/${photo}`} alt={`Room ${room.name}, ${index + 1} view`} />
-        ))}
-        <div className="booking-form">
-          <h3>Book this room</h3>
-          <form onSubmit={handleBookingSubmit}>
-            <label htmlFor="startDate">Start Date:</label>
-            <DatePicker
-     id="startDate"
-     selected={startDate}
-     onChange={(date) => setStartDate(date)}
-     startDate={startDate}
-     endDate={endDate}
-     minDate={moment()}
-     required
-     dateFormat="dd/MM/yyyy"
-     excludeDates={bookedDates.map((booking) => getRangeOfDates(booking.startDate, booking.endDate)).flat()}
-   />
-            <br />
-            <label htmlFor="endDate">End Date:</label>
-            <DatePicker
-     id="endDate"
-     selected={endDate}
-     onChange={(date) => setEndDate(date)}
-     startDate={startDate}
-     endDate={endDate}
-     minDate={moment().add(1, 'days')}
-     required
-     dateFormat="dd/MM/yyyy"
-     excludeDates={bookedDates.map((booking) => getRangeOfDates(booking.startDate, booking.endDate)).flat()}
-   />
-            <br />
-            <label htmlFor="name">Name:</label>
-            <input
-              id="name"
-              type="text"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-              required
-            />
-            <br />
-            <button type="submit">Book</button>
-          </form>
-        </div>
+    <div className="room-details-page flex justify-center">
+      <style>{datePickerStyles}</style>
+      <div className="w-1/2 min-w-400px bg-white rounded-lg shadow-lg p-6">
+        <RoomDetails room={room} />
+        <BookingForm
+          startDate={startDate}
+          endDate={endDate}
+          bookedDates={bookedDates}
+          handleBookingSubmit={handleBookingSubmit}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+          setName={setName}
+          name={name}
+          numOfPeople={numOfPeople}
+          setNumOfPeople={setNumOfPeople}
+        />
       </div>
     </div>
   );
 };
 
 export default RoomDetailsPage;
+
+
+// old room details:
+/*
+
+<h2>{room.name}</h2>
+        <p>{room.description}</p>
+        <p>Type: {room.type}</p>
+        <p>Price: {room.costPerDay}</p>
+        {room.images.map((photo, index) => (
+          <img key={index} src={`${process.env.PUBLIC_URL}/${photo}`} alt={`Room ${room.name}, pic[${index}]`} 
+          style={{height:490, width:800}}/>
+        ))}
+
+
+        */

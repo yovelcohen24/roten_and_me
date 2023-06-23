@@ -1,0 +1,51 @@
+.about_us_page {
+  background-image: url('./aboutAs_pic/back.jpg');
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 20px;
+  transition: color 0.3s;
+}
+
+.contact_info {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.contact_info h3 {
+  margin-bottom: 5px;
+}
+
+.contact_info p {
+  margin: 5px 0;
+}
+
+.family_photo {
+  margin-top: 20px;
+}
+
+.photo_image {
+  width: 300px;
+  height: auto;
+  border-radius: 50%;
+}
+
+.photo_caption {
+  margin-top: 10px;
+  font-style: italic;
+}
+
+p {
+  margin: 10px 0;
+  text-align: justify;
+}
+
+.about_us_page h1 {
+  color: black; /* Initial color */
+}
+
+.about_us_page h1:hover {
+  color: rgba(0, 94, 255, 0.493); /* Color on hover */
+}

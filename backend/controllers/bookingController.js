@@ -3,13 +3,24 @@ const moment = require('moment');
 const Room = require('../models/room');
 const Booking = require('../models/booking');
 
+/*
+ bookingSchema
+  roomName: String,
+  startDate: Date,
+  endDate: Date,
+  rentedBy: String,
+  roomId: String,
+  totalCost: Number
+*/
+
 const createBooking = async (req, res) => {
   const {
-    name,
+    roomName,
     startDate,
     endDate,
     rentedBy,
-    roomId
+    roomId,
+    numOfPeople,
   } = req.body;
 
   const room = await Room.findById(roomId);
@@ -18,15 +29,14 @@ const createBooking = async (req, res) => {
   }
 
   const numberOfDays = moment(endDate).diff(moment(startDate), 'days');
-  const totalCost = numberOfDays * room.costPerDay;
-
+  const totalCost = (numOfPeople >= 2)? numberOfDays * (room.costPerDay + 100 * (numOfPeople - 2)) : numberOfDays * (room.costPerDay);
   const overlappingBookings = await Booking.find({ roomId, startDate: { $lte: endDate }, endDate: { $gte: startDate } });
   if (overlappingBookings.length > 0) {
     return res.status(400).json({ error: 'The room is not available for the selected dates' });
   }
 
   const booking = new Booking({
-    name,
+    roomName,
     startDate,
     endDate,
     rentedBy,

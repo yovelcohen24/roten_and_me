@@ -1,0 +1,68 @@
+/* LoginPage.css */
+  .login-heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  .login-error {
+    color: red;
+    margin-bottom: 16px;
+  }
+  
+  .form-group {
+    margin-bottom: 16px;
+  }
+  
+  .form-label {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .form-input {
+    width: 300px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .login-button {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .login-button:hover {
+    background-color: darkblue;
+  }
+  /* LoginPage.css */
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('./admin_pic/adminlogin.jpg'); /* Replace 'path_to_your_image.jpg' with the actual path to your image */
+    background-size: cover;
+    background-position: center;
+    transition: filter 0.3s; /* Add a transition effect to smoothly change the filter property */
+  }
+  
+  .login-container:hover {
+    filter: brightness(120%); /* Increase the brightness of the background image on hover */
+  }
+  
+  .login-form {
+    background-color: rgba(255, 255, 255, 0.8); /* Set a semi-transparent background color for the login form */
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  /* Rest of the CSS styles... */
+  

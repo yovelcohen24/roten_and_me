@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const moment = require('moment');
 const routes = require('./routes');
-//
+const session = require('express-session');
+
 // Connect to MongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/mydatabase', {
+mongoose.connect('mongodb+srv://Cluster59812:123@cluster59812.sqwxoct.mongodb.net/?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -24,6 +25,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 
+// Added the session middleware
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: false
+}));
+
 app.use('/api', routes);
 
 // Start the server
@@ -31,3 +39,4 @@ const port = 4000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+

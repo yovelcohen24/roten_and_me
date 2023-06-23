@@ -1,4 +1,5 @@
 import React from 'react';
+// marked for deletion
 
 const Review = ({ review }) => {
   return (

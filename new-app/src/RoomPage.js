@@ -14,7 +14,7 @@ const RoomsPage = () => {
         console.error('Failed to fetch room data', error);
       }
     };
-
+    
     fetchRooms();
   }, []);
 
