@@ -98,8 +98,11 @@ const RoomDetailsPage = () => {
 
     }
     console.log("Calling booking(!) api to create new booking!")
+    const fuckingToday = (new Date());
+    fuckingToday.setHours(0,0,0,0);
+    console.log("fycking start date: " + startDate + " fucking curernt dlate: " + fuckingToday);
 
-    if(startDate.getDate() < (new Date()).getDate()){
+    if(!(startDate.getTime() >= fuckingToday.getTime())){
       alert('Please choose a future date!');
       return;
     }

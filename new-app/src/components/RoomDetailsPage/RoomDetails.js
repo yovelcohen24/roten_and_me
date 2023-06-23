@@ -74,9 +74,6 @@ const RoomDetails = ({ room }) => {
     </div>
   </div>
 </div>
-
-
-
   );
 };
 
