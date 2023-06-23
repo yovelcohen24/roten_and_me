@@ -2,12 +2,12 @@
   "name": "new-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://rotemlv.github.io/WEB_project",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
-    "install": "^0.13.0",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-calendar": "^4.2.1",
