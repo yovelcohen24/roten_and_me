@@ -1,7 +1,9 @@
-// admin login page
+// LoginPage.jsx
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import './LoginPage.css'; // Import the CSS file
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -15,19 +17,19 @@ const LoginPage = () => {
         username,
         password,
       });
-  
+
       // Handle successful login, set authentication status, etc.
       // Store the authentication status in localStorage
       localStorage.setItem('isAdminAuthenticated', 'true');
-  
+
       // Store the current date and time
       const currentDate = new Date().toISOString();
       localStorage.setItem('loginDateTime', currentDate);
-  
+
       // Store the user's IP address
       const userIP = response.data.ip; // Assuming the server returns the IP in the response
       localStorage.setItem('userIP', userIP);
-  
+
       // Redirect to admin dashboard
       history.push('/admin/dashboard');
     } catch (error) {
@@ -35,30 +37,38 @@ const LoginPage = () => {
       setError('Invalid username or password');
     }
   };
-  
+
   return (
-    <div>
-      <h2>Admin Login</h2>
-      {error && <p>{error}</p>}
-      <div>
-        <label htmlFor="username">Username:</label>
+    <div className="login-container">
+      <h2 className="login-heading">Admin Login</h2>
+      {error && <p className="login-error">{error}</p>}
+      <div className="form-group">
+        <label htmlFor="username" className="form-label">
+          Username:
+        </label>
         <input
-          type="text"
           id="username"
+          type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          className="form-input"
         />
       </div>
-      <div>
-        <label htmlFor="password">Password:</label>
+      <div className="form-group">
+        <label htmlFor="password" className="form-label">
+          Password:
+        </label>
         <input
-          type="password"
           id="password"
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          className="form-input"
         />
       </div>
-      <button onClick={handleLogin}>Login</button>
+      <button onClick={handleLogin} className="login-button">
+        Login
+      </button>
     </div>
   );
 };

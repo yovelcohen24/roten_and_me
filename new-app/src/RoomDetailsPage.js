@@ -8,6 +8,8 @@ import RoomDetails from './components/RoomDetailsPage/RoomDetails';
 import BookingForm from './components/RoomDetailsPage/BookingForm';
 import { useHistory } from 'react-router-dom';
 
+import 'tailwindcss/tailwind.css';
+
 const RoomDetailsPage = () => {
   const { roomId } = useParams();
   const [room, setRoom] = useState(null);
@@ -140,11 +142,11 @@ const RoomDetailsPage = () => {
     }
   `;
   return (
-    <div className="room-details-page" style={{ display: 'flex', justifyContent: 'center' }}>
-       <style>{datePickerStyles}</style>
-      <div style={{ width: '50%', minWidth: '400px' }}>
-      <RoomDetails room={room} />
-      <BookingForm
+    <div className="room-details-page flex justify-center">
+      <style>{datePickerStyles}</style>
+      <div className="w-1/2 min-w-400px bg-white rounded-lg shadow-lg p-6">
+        <RoomDetails room={room} />
+        <BookingForm
           startDate={startDate}
           endDate={endDate}
           bookedDates={bookedDates}
@@ -155,8 +157,7 @@ const RoomDetailsPage = () => {
           name={name}
           numOfPeople={numOfPeople}
           setNumOfPeople={setNumOfPeople}
-          
-          />
+        />
       </div>
     </div>
   );

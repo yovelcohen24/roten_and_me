@@ -82,7 +82,124 @@ import axios from 'axios';
     const goToRoomPage = () => {
       props.history.push('/rooms');
     };
-  return (
+
+    return (
+<div className="container mx-auto text-center">
+        <nav className="flex items-center justify-center py-4"> {/* Apply justify-center class */}
+        <ul className="flex justify-center"> {/* Add justify-center class */}
+          <li className="mx-2">
+            <Link to="general" smooth={true} duration={500}>מידע כללי</Link>
+          </li>
+          <li className="mx-2">
+            <Link to="opinions" smooth={true} duration={500}>חוות דעת</Link>
+          </li>
+          <li className="mx-2">
+            <Link to="specials" smooth={true} duration={500}>מבצעים</Link>
+          </li>
+          <li className="mx-2">
+            <Link to="around" smooth={true} duration={500}>מה יש בסביבה</Link>
+          </li>
+          <li className="mx-2">
+            <Link to="how-to-get" smooth={true} duration={500}>מפת הגעה</Link>
+          </li>
+        </ul>
+      </nav>
+        <div id="general" className="py-8 justify-center items-center">
+          <h1 className="text-4xl font-bold">ברוכים הבאים לצימרים בר יוחאי</h1>
+          <div className="max-w-screen-lg mx-auto h-0 pb-[30%] overflow-hidden relative flex items-center justify-center">
+  <img src={bnbImages[currentImageIndex]} alt={`B&B ${currentImageIndex + 1}`} className="object-cover absolute inset-0 w-full h-full" />
+</div>
+
+          <div className="mt-8 ">
+            <div className="flex">
+              <div className="flex-1 p-2">
+                <div className="font-bold">מיקום</div>
+                <div className="mt-2">בר יוחאי היא יישוב קהילתי דתי בגליל העליון. הישוב מכיל מספר בתי כנסת ויש שם מקווה לגברים בסמוך לצימרים. הישוב ממוקם למרגלות הר מירון ומשקיף על נוף של הרי דלתון.</div>
+              </div>
+              <div className="flex-1 p-2">
+                <div className="font-bold">תוכן הצימרים</div>
+                <div className="mt-2">הצימרים מכילים מטבח מאובזר הכולל: כירה חשמלית, פלטה, מיחם, מצנם, מיקרוגל, כוסות חמות, כוסות קרות, קפה, תה, נס, סוכר, פותחן, קולפן, מלח, סוכרזית, קומקום. ישנה גם אופציה לתנור וגז באזור הגינה. ישנה מיטה זוגית איכותית, אמבטיית ג'קוזי מפנקת, סלון עם טלוויזיה, שולחן אוכל וכל מה שיכול להיות צריך בצימר.</div>
+              </div>
+              <div className="flex-1 p-2">
+                <div className="font-bold">מה יש בגינה</div>
+                <div className="mt-2">הגינה כוללת נדנדות, ערסלים, ספסלים, דשא סינטטי, פינת ישיבה יפה מעץ, ובלילה ניתן להנות מתאורה אקסטרנית ואפשרות לברביקיו וערב טוב עם חברים ומשפחה.</div>
+          </div>
+        </div>
+      </div>
+      <div id="opinions" className="py-8">
+      <h2>המלצות מאורחים</h2>
+      {testimonialsData.map((testimonial, index) => (
+        <TestimonialItem key={index} testimonial={testimonial} />
+      ))}
+    </div>
+    <div id="specials" className="py-8 justify-center items-center specials-container">
+  <h2>המבצעים שלנו</h2>
+  <div className="promotions_container mx-auto">
+    {promotionsData.map((promotion, index) => (
+      <div
+        key={index}
+        className={`promotion_item ${index === currentPromotionIndex ? 'active' : ''}`}
+        style={{ transform: `translateX(${(index - currentPromotionIndex) * 100}%)` }}
+      >
+        <h3>{promotion.title}</h3>
+        <p>{promotion.description}</p>
+      </div>
+    ))}
+  </div>
+  <div className="promotion_arrows">
+    <button className="promotion_button" onClick={() => navigatePromotion('prev')}>Previous</button>
+    <button className="promotion_button" onClick={() => navigatePromotion('next')}>Next</button>
+  </div>
+  <div className="room_button_container">
+    <button className="room_button" onClick={goToRoomPage}>כנס למידע על החדרים עצמם ושריין חדר בהקדם</button>
+  </div>
+</div>
+
+    <div id="around" className="py-8">
+      <h2>מה יש בסביבה</h2>
+      <div className="places-carousel mx-auto">
+          <button className="carousel-arrow previous" onClick={handlePreviousPlace}>
+            &lt;
+          </button>
+          <div className="place-item">
+            <div className="place-image">
+              <a href={placesData[currentPlaceIndex].website} target="_blank" rel="noopener noreferrer">
+                <img
+                  src={placesData[currentPlaceIndex].image}
+                  alt={placesData[currentPlaceIndex].name}
+                  style={{ width: '100%', height: 'auto' }}
+                />
+              </a>
+            </div>
+            <div className="place-info">
+              <h3>{placesData[currentPlaceIndex].name}</h3>
+              <p>{placesData[currentPlaceIndex].description}</p>
+              <a href={placesData[currentPlaceIndex].website} target="_blank" rel="noopener noreferrer">
+               בקר באתר
+              </a>
+            </div>
+          </div>
+          <button className="carousel-arrow next" onClick={handleNextPlace}>
+            &gt;
+          </button>
+        </div>      
+      <div id="how-to-get" className="py-8">
+      <h2>מפת הגעה</h2>
+        <a href="https://goo.gl/maps/XmfbkpVFydZoXFVG8" target="_blank" rel="noopener noreferrer" className="map_link">
+          <img src={require('./homepage_pictures/map_image.jpg')} alt="Map" className="map_image" />
+          <span className="map_text">איך להגיע אלינו</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  </div>
+  );
+  
+};
+
+export default HomePage;
+
+{/* return (
     <div className="home_page_title">
       <nav className="navbar">
         <ul>
@@ -196,7 +313,4 @@ import axios from 'axios';
         </a>
       </div>
     </div>
-  );
-};
-
-export default HomePage;
+  ); */}
