@@ -26,7 +26,7 @@ const ModifyRoomDetails = ({ onRoomSelect, selectedRoomId }) => {
 
     const fetchRoomDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/rooms/${roomId}`);
+        const response = await axios.get((process.env.REACT_APP_API_URL || "http://localhost:4000") + `/api/rooms/${roomId}`);
         const { data } = response;
         setRoom(data);
         setNewName(data.name);
@@ -59,7 +59,7 @@ const ModifyRoomDetails = ({ onRoomSelect, selectedRoomId }) => {
       };
 
     try {
-      const response = await axios.put(`http://localhost:4000/api/rooms/${room._id}`, updatedRoom);
+      const response = await axios.put((process.env.REACT_APP_API_URL || "http://localhost:4000") + `/api/rooms/${room._id}`, updatedRoom);
       console.log('Room details updated:', response.data);
     } catch (error) {
       console.error('Failed to update room details:', error);

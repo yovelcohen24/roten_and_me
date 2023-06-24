@@ -31,7 +31,7 @@ const RoomDetailsPage = () => {
     const fetchRoomDetails = async () => {
       // This function calls an API request to fetch a room, sets the room using the state variable.
       try {
-        const response = await axios.get(`http://localhost:4000/api/rooms/${roomId}`);
+        const response = await axios.get((process.env.REACT_APP_API_URL || "http://localhost:4000") + `/api/rooms/${roomId}`);
         setRoom(response.data);
       } catch (error) {
         console.error('Failed to fetch room details', error);
@@ -43,7 +43,7 @@ const RoomDetailsPage = () => {
       // This function calls an API request to fetch all booking date ranges for the given room, 
       // sets the room using the state variable.
       try {
-        const response = await axios.get(`http://localhost:4000/api/rooms/${roomId}/excludeDates`);
+        const response = await axios.get((process.env.REACT_APP_API_URL || "http://localhost:4000") + `/api/rooms/${roomId}/excludeDates`);
         setBookedDates(response.data);
       } catch (error) {
         console.error('Failed to fetch booked dates', error);
@@ -70,7 +70,7 @@ const RoomDetailsPage = () => {
 
     console.log("Calling bookings api for checking for overlap!")
     // Check if room is available for selected dates
-    const bookingsResponse = await axios.get(`http://localhost:4000/api/bookings/${room.name}`);
+    const bookingsResponse = await axios.get((process.env.REACT_APP_API_URL || "http://localhost:4000") + `/api/bookings/${room.name}`);
         let bookings = bookingsResponse.data;
     const overlappingBookings = bookings.filter(booking => {
       console.log("Booking", booking)
