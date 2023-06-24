@@ -1,0 +1,19 @@
+.promotion_item {
+    transition: height 0.3s;
+  }
+  
+  .promotion_item:hover {
+    height: auto;
+  }
+
+  .centered-cut-corner-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 90% 100%, 0 100%);
+  }
+
+
+
+  

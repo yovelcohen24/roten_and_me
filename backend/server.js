@@ -22,7 +22,7 @@ mongoose.connect('mongodb+srv://Cluster59812:123@cluster59812.sqwxoct.mongodb.ne
 const app = express();
 
 // Enable CORS for all routes
-app.use(cors());
+app.use(cors({origin: (process.env.CLIENT_URL || 'http://localhost:3000')}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'react-app', 'build')));
 app.use(express.static('public'));
