@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+// import 'tailwindcss/tailwind.css';
 
 const ModifyRoomDetails = ({ onRoomSelect, selectedRoomId }) => {
   const { roomId } = useParams();
@@ -16,7 +17,7 @@ const ModifyRoomDetails = ({ onRoomSelect, selectedRoomId }) => {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/rooms');
+        const response = await axios.get((process.env.REACT_APP_API_URL || "http://localhost:4000")+ '/api/rooms');
         setRooms(response.data);
       } catch (error) {
         console.error('Failed to fetch rooms:', error);
@@ -79,69 +80,118 @@ const ModifyRoomDetails = ({ onRoomSelect, selectedRoomId }) => {
   };
 
   return (
-    <div>
-      <h3>Modify Room Details</h3>
-      <select value={roomId} onChange={handleRoomSelection}>
+    <div className="p-6">
+      <h3 className="text-2xl font-bold mb-4">Modify Room Details</h3>
+  
+      <select
+        value={roomId}
+        onChange={handleRoomSelection}
+        className="border rounded p-2 mb-4"
+      >
         <option value="">Select a Room</option>
         {rooms.map((room) => (
-          <option key={`${room._id}-${room.name}`} value={room._id}>
+          <option
+            key={`${room._id}-${room.name}`}
+            value={room._id}
+            className="p-2"
+          >
             {room.name}
           </option>
         ))}
       </select>
+  
       {room && (
-        <form onSubmit={handleFormSubmit}>
-          <label htmlFor="newName">New Name:</label>
-          <input
-            type="text"
-            id="newName"
-            value={newName}
-            onChange={(e) => setNewName(e.target.value)}
-          />
-               <label htmlFor="newCostPerDay">Cost Per Day:</label>
-     <input
-       type="number"
-       id="newCostPerDay"
-       value={newCostPerDay}
-       onChange={(e) => setNewCostPerDay(e.target.value)}
-     />
-
-     <label htmlFor="newImages">Images:</label>
-     <input
-       type="text"
-       id="newImages"
-       value={newImages.join(', ')}
-       onChange={(e) => setNewImages(e.target.value.split(', '))}
-     />
-
-     <label htmlFor="newType">Type:</label>
-     <input
-       type="text"
-       id="newType"
-       value={newType}
-       onChange={(e) => setNewType(e.target.value)}
-     />
-
-     <label htmlFor="newDescription">Description:</label>
-     <input
-       type="text"
-       id="newDescription"
-       value={newDescription}
-       onChange={(e) => setNewDescription(e.target.value)}
-     />
-
-     <label htmlFor="newSalePriceFactor">Sale Price Factor:</label>
+        <form onSubmit={handleFormSubmit} className="border rounded p-4">
+          <div className="mb-4">
+            <label htmlFor="newName" className="block mb-2">
+              New Name:
+            </label>
             <input
-            type="float"
-            id="newSalePriceFactor"
-            value={newSalePriceFactor}
-            onChange={(e) => setNewSalePriceFactor(e.target.value)}
+              type="text"
+              id="newName"
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              className="border rounded p-2"
             />
-          <button type="submit">Update Room</button>
+          </div>
+  
+          <div className="mb-4">
+            <label htmlFor="newCostPerDay" className="block mb-2">
+              Cost Per Day:
+            </label>
+            <input
+              type="number"
+              id="newCostPerDay"
+              value={newCostPerDay}
+              onChange={(e) => setNewCostPerDay(e.target.value)}
+              className="border rounded p-2"
+            />
+          </div>
+  
+          <div className="mb-4">
+            <label htmlFor="newImages" className="block mb-2">
+              Images:
+            </label>
+            <input
+              type="text"
+              id="newImages"
+              value={newImages.join(', ')}
+              onChange={(e) => setNewImages(e.target.value.split(', '))}
+              className="border rounded p-2"
+            />
+          </div>
+  
+          <div className="mb-4">
+            <label htmlFor="newType" className="block mb-2">
+              Type:
+            </label>
+            <input
+              type="text"
+              id="newType"
+              value={newType}
+              onChange={(e) => setNewType(e.target.value)}
+              className="border rounded p-2"
+            />
+          </div>
+  
+          <div className="mb-4">
+            <label htmlFor="newDescription" className="block mb-2">
+              Description:
+            </label>
+            <input
+              type="text"
+              id="newDescription"
+              value={newDescription}
+              onChange={(e) => setNewDescription(e.target.value)}
+              className="border rounded p-2"
+            />
+          </div>
+  
+          <div className="mb-4">
+            <label htmlFor="newSalePriceFactor" className="block mb-2">
+              Sale Price Factor:
+            </label>
+            <input
+              type="number"
+              id="newSalePriceFactor"
+              value={newSalePriceFactor}
+              onChange={(e) => setNewSalePriceFactor(e.target.value)}
+              className="border rounded p-2"
+            />
+          </div>
+  
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Update Room
+          </button>
         </form>
       )}
     </div>
   );
+  
+  
 };
 
 export default ModifyRoomDetails;

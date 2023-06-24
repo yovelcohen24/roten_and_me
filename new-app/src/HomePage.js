@@ -31,7 +31,7 @@ import axios from 'axios';
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/promotions');
+        const response = await axios.get((process.env.REACT_APP_API_URL || "http://localhost:4000")+ '/api/promotions');
         setPromotionsData(response.data);
       } catch (error) {
         console.error('Failed to fetch room data', error);

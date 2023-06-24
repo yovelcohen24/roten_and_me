@@ -43,33 +43,33 @@ const Dashboard = () => {
   const handleRoomSelection = (roomId) => {
     setSelectedRoomId(roomId);
   };
-
   return (
-      <div className="dashboard-container">
-        {isAdmin ? (
-          <div>
-            <h2 className="dashboard-heading">Admin Dashboard</h2>
-            <div className="mb-4"> {/* Move the logout button to a separate div */}
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleLogout}>Logout</button>
+    <div className="container mx-auto px-4">
+      {isAdmin ? (
+        <div className="text-center">
+          <h2 className="text-3xl font-semibold text-gray-900 mb-4">Admin Dashboard</h2>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleLogout}>Logout</button>
+          <div className="my-6">
+            <h3 className="text-2xl font-semibold text-gray-900 mb-2">Modify Room Details</h3>
+            <ModifyRoomDetails onRoomSelect={handleRoomSelection} selectedRoomId={selectedRoomId} />
           </div>
-            <div className="section">
-              <h3 className="section-heading">Modify Room Details</h3>
-              <ModifyRoomDetails onRoomSelect={handleRoomSelection} selectedRoomId={selectedRoomId} />
-            </div>
-            <div className="section">
-              <h3 className="section-heading">Add New Room</h3>
-              <AddRoom />
-            </div>
-            <div className="section">
-              <h3 className="section-heading">Add Promotion</h3>
-              <AddPromotion />
-            </div>
+          <div className="my-6">
+            <h3 className="text-2xl font-semibold text-gray-900 mb-2">Add New Room</h3>
+            <AddRoom />
           </div>
-        ) : (
-          <p>Loading...</p>
-        )}
-      </div>
+          <div className="my-6">
+            <h3 className="text-2xl font-semibold text-gray-900 mb-2">Add Promotion</h3>
+            <AddPromotion />
+          </div>
+        </div>
+      ) : (
+        <p className="text-2xl text-gray-600">Loading...</p>
+      )}
+    </div>
   );
+  
+  
+  
   
 
   return (

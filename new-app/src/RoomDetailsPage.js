@@ -8,7 +8,7 @@ import RoomDetails from './components/RoomDetailsPage/RoomDetails';
 import BookingForm from './components/RoomDetailsPage/BookingForm';
 import { useHistory } from 'react-router-dom';
 
-import 'tailwindcss/tailwind.css';
+import './Dashboard.css';
 
 const RoomDetailsPage = () => {
   const { roomId } = useParams();
@@ -117,7 +117,7 @@ const RoomDetailsPage = () => {
 
     // Submit booking
     try {
-      const bookingResponse = await axios.post('http://localhost:4000/api/bookings', {
+      const bookingResponse = await axios.post((process.env.REACT_APP_API_URL || "http://localhost:4000")+ '/api/bookings', {
         roomName: room.name,
         startDate: startDate,
         endDate: endDate,
@@ -147,7 +147,7 @@ const RoomDetailsPage = () => {
   return (
     <div className="room-details-page flex justify-center">
       <style>{datePickerStyles}</style>
-      <div className="w-1/2 min-w-400px bg-white rounded-lg shadow-lg p-6">
+      <div className="w-full sm:w-1/2 lg:min-w-400px bg-white rounded-lg shadow-lg p-6">
         <RoomDetails room={room} />
         <BookingForm
           startDate={startDate}
@@ -164,6 +164,7 @@ const RoomDetailsPage = () => {
       </div>
     </div>
   );
+  
 };
 
 export default RoomDetailsPage;

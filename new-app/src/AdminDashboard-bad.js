@@ -10,7 +10,7 @@ const Dashboard = () => {
   useEffect(() => {
     const checkAdminSession = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/admin/check-session');
+        const response = await axios.get((process.env.REACT_APP_API_URL || "http://localhost:4000")+ '/api/admin/check-session');
         console.log(response + "  string " + JSON.stringify(response));
         // If the session is valid and the user is authenticated as admin
         if (response.data.isAdminAuthenticated) {

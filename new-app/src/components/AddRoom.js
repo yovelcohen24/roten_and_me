@@ -42,7 +42,7 @@ const AddRoom = () => {
    
         // Make the API call to create the room
         try {
-          const response = await axios.post('http://localhost:4000/api/rooms', newRoom);
+          const response = await axios.post((process.env.REACT_APP_API_URL || "http://localhost:4000")+ '/api/rooms', newRoom);
           console.log('Room created:', response.data);
           // Handle success or perform any necessary actions
         } catch (error) {
@@ -60,65 +60,106 @@ const AddRoom = () => {
         setInputValidation('');
       };
       return (
-        <div>
-                        <h3>Add Room</h3>
-
-               <form onSubmit={handleFormSubmit}>
-     <label htmlFor="roomName">Room Name:</label>
-     <input
-       type="text"
-       id="roomName"
-       value={roomName}
-       onChange={(e) => setRoomName(e.target.value)}
-     />
-
-     <label htmlFor="costPerDay">Cost Per Day:</label>
-     <input
-       type="number"
-       id="costPerDay"
-       value={costPerDay}
-       onChange={(e) => setCostPerDay(parseFloat(e.target.value))}
-     />
-
-     <label htmlFor="images">Images (comma-separated):</label>
-     <input
-       type="text"
-       id="images"
-       value={images}
-       onChange={(e) => setImages(e.target.value)}
-     />
-
-     <label htmlFor="type">Type:</label>
-     <input
-       type="text"
-       id="type"
-       value={type}
-       onChange={(e) => setType(e.target.value)}
-     />
-
-     <label htmlFor="description">Description:</label>
-     <input
-       type="text"
-       id="description"
-       value={description}
-       onChange={(e) => setDescription(e.target.value)}
-     />
-
-     <label htmlFor="salePriceFactor">Sale Price Factor:</label>
-     <input
-       type="number"
-       id="salePriceFactor"
-       value={salePriceFactor}
-       onChange={(e) => setSalePriceFactor(parseFloat(e.target.value))}
-     />
-
-     <button type="submit">Submit</button>
-   </form>
-   <p>
-    {inputValidation}
-   </p>
+        <div className="p-6">
+          <h3 className="text-2xl font-bold mb-4">Add Room</h3>
+      
+          <form onSubmit={handleFormSubmit} className="border rounded p-4">
+            <div className="-mx-3 md:flex mb-4">
+              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+                <label htmlFor="roomName" className="block mb-2">
+                  Room Name:
+                </label>
+                <input
+                  type="text"
+                  id="roomName"
+                  value={roomName}
+                  onChange={(e) => setRoomName(e.target.value)}
+                  className="border rounded p-2 w-full"
+                />
+              </div>
+      
+              <div className="md:w-1/2 px-3">
+                <label htmlFor="costPerDay" className="block mb-2">
+                  Cost Per Day:
+                </label>
+                <input
+                  type="number"
+                  id="costPerDay"
+                  value={costPerDay}
+                  onChange={(e) => setCostPerDay(parseFloat(e.target.value))}
+                  className="border rounded p-2 w-full"
+                />
+              </div>
+            </div>
+      
+            <div className="-mx-3 md:flex mb-4">
+              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+                <label htmlFor="images" className="block mb-2">
+                  Images (comma-separated):
+                </label>
+                <input
+                  type="text"
+                  id="images"
+                  value={images}
+                  onChange={(e) => setImages(e.target.value)}
+                  className="border rounded p-2 w-full"
+                />
+              </div>
+      
+              <div className="md:w-1/2 px-3">
+                <label htmlFor="type" className="block mb-2">
+                  Type:
+                </label>
+                <input
+                  type="text"
+                  id="type"
+                  value={type}
+                  onChange={(e) => setType(e.target.value)}
+                  className="border rounded p-2 w-full"
+                />
+              </div>
+            </div>
+      
+            <div className="-mx-3 md:flex mb-4">
+              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+                <label htmlFor="description" className="block mb-2">
+                  Description:
+                </label>
+                <input
+                  type="text"
+                  id="description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  className="border rounded p-2 w-full"
+                />
+              </div>
+      
+              <div className="md:w-1/2 px-3">
+                <label htmlFor="salePriceFactor" className="block mb-2">
+                  Sale Price Factor:
+                </label>
+                <input
+                  type="number"
+                  id="salePriceFactor"
+                  value={salePriceFactor}
+                  onChange={(e) => setSalePriceFactor(parseFloat(e.target.value))}
+                  className="border rounded p-2 w-full"
+                />
+              </div>
+            </div>
+      
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Submit
+            </button>
+          </form>
+      
+          <p className="mt-4">{inputValidation}</p>
         </div>
-      )
+      );
+      
 }
 
 export default AddRoom;
