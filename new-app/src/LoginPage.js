@@ -13,7 +13,7 @@ const LoginPage = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:4000/api/admin/login', {
+      const response = await axios.post((process.env.REACT_APP_API_URL || "http://localhost:4000")+ '/api/admin/login', {
         username,
         password,
       });

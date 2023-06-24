@@ -8,7 +8,7 @@
    import LoginPage from './LoginPage';
    import Dashboard from './AdminDashboard';
    import 'tailwindcss/tailwind.css'; // Import Tailwind CSS
-
+   
    function App() {
      return (
        <Router>

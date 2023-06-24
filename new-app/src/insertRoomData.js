@@ -52,7 +52,7 @@ const insertRoomData = async () => {
   try {
     // Loop through each room and insert the data
     for (const room of roomData) {
-      await axios.post('http://localhost:4000/api/rooms', room);
+      await axios.post((process.env.REACT_APP_API_URL || "http://localhost:4000")+ '/api/rooms', room);
     }
     console.log('Room data inserted successfully');
   } catch (error) {

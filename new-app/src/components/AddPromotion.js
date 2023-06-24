@@ -28,7 +28,7 @@ const AddPromotion = () => {
    
         // Make the API call to create the room
         try {
-          const response = await axios.post('http://localhost:4000/api/promotions', newPromotion);
+          const response = await axios.post((process.env.REACT_APP_API_URL || "http://localhost:4000")+ '/api/promotions', newPromotion);
           console.log('Promotion created:', response.data);
           // Handle success or perform any necessary actions
         } catch (error) {
@@ -41,32 +41,50 @@ const AddPromotion = () => {
         setPromotionDescription('');
       };
       return (
-        <div>
-                        <h3>Add Promotion</h3>
-
-               <form onSubmit={handleFormSubmit}>
-     <label htmlFor="roomName">Promotion title:</label>
-     <input
-       type="text"
-       id="roomName"
-       value={promotionTitle}
-       onChange={(e) => setPromotionTitle(e.target.value)}
-     />
-     <label htmlFor="description">Description:</label>
-     <input
-       type="text"
-       id="description"
-       value={promotionDescription}
-       onChange={(e) => setPromotionDescription(e.target.value)}
-     />
-
-     <button type="submit">Submit</button>
-   </form>
-   <p>
-    {inputValidation}
-   </p>
+        <div className="p-6">
+          <h3 className="text-2xl font-bold mb-4">Add Promotion</h3>
+      
+          <form onSubmit={handleFormSubmit} className="border rounded p-4">
+            <div className="-mx-3 md:flex mb-4">
+              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+                <label className="uppercase tracking-wide text-black text-xs font-bold mb-2" htmlFor="promotionTitle">
+                  Promotion Title:
+                </label>
+                <input
+                  type="text"
+                  id="promotionTitle"
+                  value={promotionTitle}
+                  onChange={(e) => setPromotionTitle(e.target.value)}
+                  className="border rounded p-2 w-full"
+                />
+              </div>
+      
+              <div className="md:w-1/2 px-3">
+                <label className="uppercase tracking-wide text-black text-xs font-bold mb-2" htmlFor="description">
+                  Description:
+                </label>
+                <input
+                  type="text"
+                  id="description"
+                  value={promotionDescription}
+                  onChange={(e) => setPromotionDescription(e.target.value)}
+                  className="border rounded p-2 w-full"
+                />
+              </div>
+            </div>
+      
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Submit
+            </button>
+          </form>
+      
+          <p className="mt-4">{inputValidation}</p>
         </div>
-      )
+      );
+      
 }
 
 export default AddPromotion;

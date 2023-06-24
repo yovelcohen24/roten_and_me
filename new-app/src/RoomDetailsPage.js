@@ -8,7 +8,8 @@ import RoomDetails from './components/RoomDetailsPage/RoomDetails';
 import BookingForm from './components/RoomDetailsPage/BookingForm';
 import { useHistory } from 'react-router-dom';
 
-import 'tailwindcss/tailwind.css';
+import './Dashboard.css';
+import Popup from './components/PopUp';
 
 const RoomDetailsPage = () => {
   const { roomId } = useParams();
@@ -20,7 +21,11 @@ const RoomDetailsPage = () => {
 
   const [bookedDates, setBookedDates] = useState([]);
   const history = useHistory();
-
+  
+  // for popup:
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+  const [isGoodResponse, setIsGoodResponse] = useState(false);
 
   useEffect(() => {
     const fetchRoomDetails = async () => {
@@ -90,7 +95,9 @@ const RoomDetailsPage = () => {
     overlappingBookings.map(b => console.log(b));
     console.log("Wanted start date: " + startDate +  " Wanted end date: " + endDate);
     if (overlappingBookings.length > 0) {
-      alert('The room is not available for the selected dates.');
+      setPopupMessage('The room is not available for the selected dates.');
+      setShowPopup(true);
+      // alert('The room is not available for the selected dates.');
       return;
     }
     else{
@@ -98,16 +105,20 @@ const RoomDetailsPage = () => {
 
     }
     console.log("Calling booking(!) api to create new booking!")
-    const fuckingToday = (new Date());
-    fuckingToday.setHours(0,0,0,0);
-    console.log("fycking start date: " + startDate + " fucking curernt dlate: " + fuckingToday);
+    const todayDate = (new Date());
+    todayDate.setHours(0,0,0,0);
+    console.log("start date: " + startDate + " curernt dlate: " + todayDate);
 
-    if(!(startDate.getTime() >= fuckingToday.getTime())){
-      alert('Please choose a future date!');
+    if(!(startDate.getTime() >= todayDate.getTime())){
+      // alert('Please choose a future date!');
+      setPopupMessage('Please choose a future date!');
+      setShowPopup(true);
       return;
     }
     if(startDate.getTime() > endDate.getTime()){
-      alert('End date must be after start date!');
+      // alert('End date must be after start date!');
+      setPopupMessage('End date must be after start date!');
+      setShowPopup(true);
       return;
     }
     //////////////////////////////////////////////////////////////////////////
@@ -117,7 +128,7 @@ const RoomDetailsPage = () => {
 
     // Submit booking
     try {
-      const bookingResponse = await axios.post('http://localhost:4000/api/bookings', {
+      const bookingResponse = await axios.post((process.env.REACT_APP_API_URL || "http://localhost:4000")+ '/api/bookings', {
         roomName: room.name,
         startDate: startDate,
         endDate: endDate,
@@ -125,12 +136,16 @@ const RoomDetailsPage = () => {
         roomId: roomId,
         totalCost: totalCost,
       });
-      alert('Booking submitted successfully!');
+      // alert(`Booking submitted successfully! Total cost: ${totalCost}. Please contact us by phone.`);
+      setPopupMessage(`Booking submitted successfully! Total cost: ${totalCost}. Please contact us by phone.`);
+      setShowPopup(true);
+      setIsGoodResponse(true);
       console.log("Booking created, response: " + JSON.stringify( bookingResponse ));
-      history.goBack();
     } catch (error) {
       console.error('Failed to submit booking', error);
-      alert('Failed to submit booking');
+      // alert('Failed to submit booking');
+      setPopupMessage('Failed to submit booking! Try contacting us!');
+      setShowPopup(true);
     }
   };
 
@@ -147,7 +162,7 @@ const RoomDetailsPage = () => {
   return (
     <div className="room-details-page flex justify-center">
       <style>{datePickerStyles}</style>
-      <div className="w-1/2 min-w-400px bg-white rounded-lg shadow-lg p-6">
+      <div className="w-full sm:w-1/2 lg:min-w-400px bg-white rounded-lg shadow-lg p-6">
         <RoomDetails room={room} />
         <BookingForm
           startDate={startDate}
@@ -161,9 +176,21 @@ const RoomDetailsPage = () => {
           numOfPeople={numOfPeople}
           setNumOfPeople={setNumOfPeople}
         />
+              {showPopup && (
+        <Popup
+          message={popupMessage}
+          onClose={() => {setShowPopup(false);const tmp=isGoodResponse; setIsGoodResponse(false); if(tmp){      history.goBack();} else{
+            setStartDate('');
+            setEndDate('');
+          };
+          }}
+          isGoodResponse={isGoodResponse}
+        />
+      )}
       </div>
     </div>
   );
+  
 };
 
 export default RoomDetailsPage;
