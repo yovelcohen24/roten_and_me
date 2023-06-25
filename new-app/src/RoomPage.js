@@ -22,18 +22,19 @@ const RoomsPage = () => {
 
   const backgroundImage = 'sitew.jpg';
 
+
   return (
     <div className="relative min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(/${backgroundImage})` }}>
       <div className="absolute top-0 left-0 py-8 w-full h-full flex flex-col items-center">
         <h2 className="text-3xl font-semibold mb-4">Our Rooms</h2>
-        <div className="flex justify-center space-x-4">
+        <div className="flex flex-wrap justify-center gap-4">
           {rooms.map((room) => (
-            <RoomCard key={room._id} room={room} />
+            <RoomCard key={room._id} room={room} className="w-1/4" />
           ))}
         </div>
       </div>
     </div>
-  );
+  );  
   
   
 };

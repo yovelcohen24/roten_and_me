@@ -24,10 +24,10 @@ const RoomCard = ({ room }) => {
       <div className="p-4">
         <h3 className="text-xl font-bold mb-2 text-center">{name}</h3>
         <div className="border-t mt-2 mb-4"></div>
-        <p className="text-gray-600 text-right overflow-hidden h-40">{description}</p>
+        <p className="text-gray-600 text-center overflow-hidden h-40">{description}</p>
       </div>
       <div className="p-4">
-        <p className="text-gray-600 text-right">Type: {type}</p>
+        <p className="text-gray-600 text-left">Type: {type}</p>
       </div>
     </div>
   );
