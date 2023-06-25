@@ -10,13 +10,14 @@ roomSchema
   type: String,
   description: String,
   salePriceFactor: Number
+
 */
 
 const createRoom = async (req, res) => {
   const {
     name,
     costPerDay,
-    photos,
+    images,
     type,
     description,
     salePriceFactor,
@@ -25,7 +26,7 @@ const createRoom = async (req, res) => {
   const room = new Room({
     name,
     costPerDay,
-    images: photos,
+    images,
     type,
     description,
     salePriceFactor,
@@ -153,5 +154,4 @@ module.exports = {
   getRoomById,
   getRoomExcludeDates, // Add the new controller function
   modifyRoomDetails,
-
 };

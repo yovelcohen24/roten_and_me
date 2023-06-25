@@ -11,6 +11,9 @@ const AddRoom = () => {
     const [inputValidation, setInputValidation] = useState('');
 
     const handleFormSubmit = async (e) => {
+      console.log("IMAGES: " + images);
+      console.log("IMAGES after converting: " + (images.split(', ').map((image) => image.trim())));
+
         e.preventDefault();
         // Input validation
         if (
@@ -28,20 +31,22 @@ const AddRoom = () => {
         }
    
         // Convert the images string into an array
-        const imagesArray = images.split(',').map((image) => image.trim());
-   
+        const imagesArray = images.split(', ');
+        console.log(imagesArray)
+
         // Create the room object
         const newRoom = {
           name: roomName,
-          costPerDay,
+          costPerDay: costPerDay,
           images: imagesArray,
-          type,
-          description,
-          salePriceFactor,
+          type: type,
+          description: description,
+          salePriceFactor: salePriceFactor,
         };
    
         // Make the API call to create the room
         try {
+          console.log("INSERTING: " + newRoom);
           const response = await axios.post((process.env.REACT_APP_API_URL || "http://localhost:4000")+ '/api/rooms', newRoom);
           console.log('Room created:', response.data);
           // Handle success or perform any necessary actions
@@ -49,7 +54,7 @@ const AddRoom = () => {
           console.error('Failed to create room:', error);
           // Handle the error response or display an error message
         }
-   
+        
         // Reset the form inputs
         setRoomName('');
         setCostPerDay(0);

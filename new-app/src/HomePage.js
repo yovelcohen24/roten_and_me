@@ -40,25 +40,6 @@ import './homepage.css';
     
     fetchRooms();
   }, []);
-
-    const promotionsDataOLD = [
-      {
-        title: 'יש לכם ילדים קטנים?',
-        description: ' ! ילד מתחת לגיל שנתיים בחינם',
-      },
-      {
-        title: 'מבצע סופ"ש',
-        description: 'זוג ב500 שקלים בלבד',
-      },
-      {
-        title: 'מבצע  לאמצע שבוע',
-        description: 'לילה רביעי רצוף בחינם !',
-      },
-      {
-        title: 'מבצע בין הזמנים',
-        description: '  (עד 30 אנשים)  השכרת כל המתחם ליום ב3500',
-      },
-    ];
   
     useEffect(() => {
       const interval = setInterval(() => {
@@ -82,10 +63,11 @@ import './homepage.css';
     const goToRoomPage = () => {
       props.history.push('/rooms');
     };
-
+    const backgroundImage = "sitew.jpg";
     return (
-      <div className="bg-gray-200 bg-opacity-50 centered-cut-corner-wrapper" style={{ backgroundImage: `url(/background.png)` } }>
+      <div className="bg-gray-200 bg-opacity-50 centered-cut-corner-wrapper bg-no-repeat bg-center bg-cover" style={{ backgroundImage: `url(/${backgroundImage})` }}>
       <div className="container mx-auto text-center">
+        
       <nav className="flex items-center justify-center py-4">
         <ul className="flex justify-center">
           <li className="mx-2">
@@ -105,6 +87,8 @@ import './homepage.css';
           </li>
         </ul>
       </nav>
+
+      
       <div id="general" className="py-8">
         <h1 className="text-4xl font-bold">ברוכים הבאים לצימרים בר יוחאי</h1>
         <div className="max-w-screen-lg mx-auto h-0 pb-[30%] overflow-hidden relative flex items-center justify-center">
@@ -219,119 +203,3 @@ import './homepage.css';
 };
 
 export default HomePage;
-
-{/* return (
-    <div className="home_page_title">
-      <nav className="navbar">
-        <ul>
-          <li>
-            <Link to="general" smooth={true} duration={500}>מידע כללי</Link>
-          </li>
-          <li>
-            <Link to="opinions" smooth={true} duration={500}>חוות דעת</Link>
-          </li>
-          <li>
-            <Link to="specials" smooth={true} duration={500}>מבצעים</Link>
-          </li>
-          <li>
-            <Link to="around" smooth={true} duration={500}>מה יש בסביבה</Link>
-          </li>
-          <li>
-            <Link to="how-to-get" smooth={true} duration={500}>מפת הגעה</Link>
-          </li>
-        </ul>
-      </nav>
-      <div id="general" className="section">
-        <h1>ברוכים הבאים לצימרים בר יוחאי</h1>
-          <div className="image_container">
-            <img src={bnbImages[currentImageIndex]} alt={`B&B ${currentImageIndex + 1}`} />
-          </div>
-          <div className="info_table">
-            <div className="table_row">
-              <div className="table_cell">
-                <div className="field">מיקום</div>
-                <div className="content">בגליל העליון בישוב קהילתי דתי הנקרא בר יוחאי ,הישוב מכיל מספר בתי כנסת ויש מקווה לגברים בסמוך לצימרים, הישוב הוא למרגלות הר מירון ומשקיף לנוף של הרי דלתון</div>
-              </div>
-              <div className="table_cell">
-                <div className="field">תוכן הצימרים</div>
-                <div className="content">הצימרים כוללים מטבח מאובזר הכולל : כירה חשמלית, פלטה , מיחם, מצנם , מיקרוגל , כוסות חם , כוסות קר, קפה ,תה ,נס ,סוכר , פותחן, קולפן ,מלח ,סוכרזית ,קומקום , בנוסף יש אופצייה לתנור וגז באיזור הגינה, יש מיטה זוגית איכותית אמבטיית ג'קוזי מפנקת ,סלון טלויזיה , שולחן אוכל וכל מה שמעלים בדעתכם</div>
-              </div>
-              <div className="table_cell">
-                <div className="field">מה יש בגינה</div>
-                <div className="content">הגינה כוללת נדנדות ערסלים ספסלים דשא סינטטי פינת ישיבה יפה מעץ , בלילה יש תיאורה צבעונית יפהפיה הנאה מובטחת לילדים, כמו כן יש בריכה בגודל 18 מטר מרובע צנועה וסגורה</div>
-              </div>
-            </div>
-          </div>
-       </div>
-     
-    <div id="opinions" className="section"> 
-     <h2>המלצות מאורחים</h2>
-        {testimonialsData.map((testimonial, index) => (
-          <TestimonialItem key={index} testimonial={testimonial} />
-        ))}
-    </div>
-      
-      <div id="specials" className="section">
-        <h2>המבצעים שלנו</h2>
-          <div className="promotions_container">
-            {promotionsData.map((promotion, index) => (
-            <div
-            key={index}
-            className={`promotion_item ${index === currentPromotionIndex ? 'active' : ''}`}
-            style={{ transform: `translateX(${(index - currentPromotionIndex) * 100}%)` }}
-        >
-            <h3>{promotion.title}</h3>
-            <p>{promotion.description}</p>
-          </div>
-          ))}
-         </div>
-        <div className="promotion_arrows">
-         <button className="promotion_button" onClick={() => navigatePromotion('prev')}>Previous</button>
-         <button className="promotion_button" onClick={() => navigatePromotion('next')}>Next</button>
-       </div>
-
-      <div className="room_button_container">
-       <button className="room_button" onClick={goToRoomPage}>כנס למידע על החדרים עצמם ושריין חדר בהקדם</button>
-      </div>
-     </div>
-
-      
-      <div id="around" className="section">
-        <h2>מה יש בסביבה</h2>
-        <div className="places-carousel">
-          <button className="carousel-arrow previous" onClick={handlePreviousPlace}>
-            &lt;
-          </button>
-          <div className="place-item">
-            <div className="place-image">
-              <a href={placesData[currentPlaceIndex].website} target="_blank" rel="noopener noreferrer">
-                <img
-                  src={placesData[currentPlaceIndex].image}
-                  alt={placesData[currentPlaceIndex].name}
-                  style={{ width: '100%', height: 'auto' }}
-                />
-              </a>
-            </div>
-            <div className="place-info">
-              <h3>{placesData[currentPlaceIndex].name}</h3>
-              <p>{placesData[currentPlaceIndex].description}</p>
-              <a href={placesData[currentPlaceIndex].website} target="_blank" rel="noopener noreferrer">
-               בקר באתר
-              </a>
-            </div>
-          </div>
-          <button className="carousel-arrow next" onClick={handleNextPlace}>
-            &gt;
-          </button>
-        </div>
-      </div>
-      
-      <div id="how-to-get" className="section">
-        <h2>מפת הגעה</h2>
-        <a href="https://goo.gl/maps/XmfbkpVFydZoXFVG8" target="_blank" rel="noopener noreferrer" className="map_link">
-          <img src={require('./homepage_pictures/map_image.jpg')} alt="Map" className="map_image" />
-          <span className="map_text">איך להגיע אלינו</span>
-        </a>
-      </div>
-    </div>
-  ); */}
