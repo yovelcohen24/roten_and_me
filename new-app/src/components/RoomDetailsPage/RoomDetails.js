@@ -67,7 +67,6 @@ const RoomDetails = ({ room }) => {
   const closeImagePopup = () => {
     setIsImagePopupOpen(false);
   };
-const ONE_PERSON_PRICE = 100;
   return (
     <div className="bg-gray-100">
       {isImagePopupOpen && (
@@ -82,7 +81,7 @@ const ONE_PERSON_PRICE = 100;
         </div>
       )}
     
-      <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8">
         <div className="max-w-3xl mx-auto text-center">
           <div className="flex flex-col md:flex-row justify-center md:items-center mb-8">
             <h2 className="text-4xl md:text-5xl font-bold mb-2 md:mr-8">{room.name}</h2>
@@ -90,8 +89,8 @@ const ONE_PERSON_PRICE = 100;
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex flex-col md:flex-row bg-white rounded-lg shadow-lg p-4">
-              <p className="text-lg md:mr-8 mb-4">{room.description}</p>
-              <p className="text-lg">Type: {room.type}</p>
+              <p className="text-lg">Description: {room.description}</p>
+              
             </div>
             <div className="carousel-container bg-white rounded-lg shadow-lg p-4">
               <div className="carousel">
@@ -150,6 +149,8 @@ const ONE_PERSON_PRICE = 100;
               </div>
             </div>
           </div>
+          <p className="text-lg md:self-end py-8">Type: {room.type}</p>
+
         </div>
       </div>
     </div>
