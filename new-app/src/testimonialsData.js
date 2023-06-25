@@ -1,20 +1,19 @@
 const testimonialsData = [
-    {
-      name: 'אהרון',
-      date: '20/04/2023',
-      content: 'החדר היה נקי, הריח היה טוב, ניתן לראות שהייתה היגיינה גבוהה',
-    },
-    {
-      name: 'אשר',
-      date: '14/02/2023',
-      content: 'הכי מקסים! מיוחד! נקי נקי נקי!!!! ריח טוב של ניקיון רענן קיבל את פנינו. מקום מדהים! נוף עוצר נשימה! מתקני חצר ממש טובים. בריכה קטנה וגדולה. אפילו לשבת זה כל מה שנדרש, פלטה, מתקן עם סדר השבת. מוּמלָץ',
-    },
-    {
-      name: 'דנה',
-      date: '07/05/2023',
-      content: 'מקום נהדר, יחס מעולה, מקום נקי, שזה כמעט הדבר הכי חשוב! מאוד אהבנו, בעזרת השם נחזור'
-    },
-  ];
-  
-  export default testimonialsData;
-  
+  {
+    name: 'Aaron',
+    date: '04/20/2023',
+    content: 'The room was clean, smelled good, and had a high level of hygiene.',
+  },
+  {
+    name: 'Asher',
+    date: '02/14/2023',
+    content: 'The best! Unique! Clean, clean, clean!!!! Good smell of freshness and cleanliness welcomed us. Amazing place! Breathtaking view! Very good yard facilities. Small and large swimming pool. Even for Shabbat, everything required is available, hot plate, Shabbat facility. Highly recommended.',
+  },
+  {
+    name: 'Dana',
+    date: '05/07/2023',
+    content: 'Great place, excellent service, clean place, which is almost the most important thing! We really liked it, God willing, we will come back.',
+  },
+];
+
+export default testimonialsData;

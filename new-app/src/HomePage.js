@@ -73,19 +73,19 @@ import './homepage.css';
       <nav className="flex items-center justify-center py-4">
         <ul className="flex justify-center">
           <li className="mx-2">
-            <Link to="general" smooth={true} duration={500}>מידע כללי</Link>
+            <Link to="general" smooth={true} duration={500}>General Info</Link>
           </li>
           <li className="mx-2">
-            <Link to="opinions" smooth={true} duration={500}>חוות דעת</Link>
+            <Link to="opinions" smooth={true} duration={500}>Guest Recommendations</Link>
           </li>
           <li className="mx-2">
-            <Link to="specials" smooth={true} duration={500}>מבצעים</Link>
+            <Link to="specials" smooth={true} duration={500}>Promotions</Link>
           </li>
           <li className="mx-2">
-            <Link to="around" smooth={true} duration={500}>מה יש בסביבה</Link>
+            <Link to="around" smooth={true} duration={500}>What's around us</Link>
           </li>
           <li className="mx-2">
-            <Link to="how-to-get" smooth={true} duration={500}>מפת הגעה</Link>
+            <Link to="how-to-get" smooth={true} duration={500}>Map</Link>
           </li>
         </ul>
       </nav>
@@ -99,16 +99,21 @@ import './homepage.css';
           <div className="mt-8 ">
             <div className="flex">
             <div className="p-2">
-    <div className="font-bold text-lg">מיקום</div>
-    <div className="mt-2">בר יוחאי היא יישוב קהילתי דתי בגליל העליון. הישוב מכיל מספר בתי כנסת ויש שם מקווה לגברים בסמוך לצימרים. הישוב ממוקם למרגלות הר מירון ומשקיף על נוף של הרי דלתון.</div>
+    <div className="font-bold text-lg">Location</div>
+    <div className="mt-2">
+      Bar-Yohai is a Jewish religious community in the upper Galille, in Israel. The community is a home to several temples and other religious sites. Located near Har-Meiron, with an amazing view. 
+      </div>
   </div>
   <div className="p-2">
-    <div className="font-bold text-lg">תוכן הצימרים</div>
-    <div className="mt-2">הצימרים מכילים מטבח מאובזר הכולל: כירה חשמלית, פלטה, מיחם, מצנם, מיקרוגל, כוסות חמות, כוסות קרות, קפה, תה, נס, סוכר, פותחן, קולפן, מלח, סוכרזית, קומקום. ישנה גם אופציה לתנור וגז באזור הגינה. ישנה מיטה זוגית איכותית, אמבטיית ג'קוזי מפנקת, סלון עם טלוויזיה, שולחן אוכל וכל מה שיכול להיות צריך בצימר.</div>
+    <div className="font-bold text-lg">What's inside</div>
+    <div className="mt-2">
+      The lodging rooms contain a full kitchen with many utilities, a double-bed, Jacuzzi, TV, food and everything you'll ever want in your vacation.</div>
   </div>
   <div className="p-2">
-    <div className="font-bold text-lg">מה יש בגינה</div>
-    <div className="mt-2">הגינה כוללת נדנדות, ערסלים, ספסלים, דשא סינטטי, פינת ישיבה יפה מעץ, ובלילה ניתן להנות מתאורה אקסטרנית ואפשרות לברביקיו וערב טוב עם חברים ומשפחה.</div>
+    <div className="font-bold text-lg">Our garden</div>
+    <div className="mt-2">
+      Our gardens have swings, benches, synthetic grass, and a nice wooden sitting area. At night one can enjoy external lighting, barbeque options and a good evening with friends and family. 
+      </div>
   </div>
         </div>
       </div>
