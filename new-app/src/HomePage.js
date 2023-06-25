@@ -67,24 +67,24 @@ import './homepage.css';
     return (
       
     <div className="bg-gray-200 bg-opacity-50 centered-cut-corner-wrapper bg-no-repeat bg-center bg-cover" style={{ backgroundImage: `url(/${backgroundImage})` }}>
-      <div className="container mx-auto px-4 bg-gray-100 min-h-screen bg-opacity-80 transition-colors duration-500 ease-in-out hover:bg-opacity-90">
+      <div className="container mx-auto px-4 bg-gray-100 min-h-screen bg-opacity-80 transition-colors duration-500 ease-in-out hover:bg-opacity-90 overflow-x-hidden">
       <div className="container mx-auto text-center">
         
       <nav className="flex items-center justify-center py-4">
-        <ul className="flex justify-center">
-          <li className="mx-2">
+      <ul className="flex justify-center flex-wrap">
+          <li className="mx-2 px-2 py-2">
             <Link to="general" smooth={true} duration={500}>General Info</Link>
           </li>
-          <li className="mx-2">
-            <Link to="opinions" smooth={true} duration={500}>Guest Recommendations</Link>
+          <li className="mx-2 px-2 py-2">
+            <Link to="opinions" smooth={true} duration={500}>Recommendations</Link>
           </li>
-          <li className="mx-2">
+          <li className="mx-2 px-2 py-2">
             <Link to="specials" smooth={true} duration={500}>Promotions</Link>
           </li>
-          <li className="mx-2">
-            <Link to="around" smooth={true} duration={500}>What's around us</Link>
+          <li className="mx-2 px-2 py-2">
+            <Link to="around" smooth={true} duration={500}>Around us</Link>
           </li>
-          <li className="mx-2">
+          <li className="mx-2 px-2 py-2">
             <Link to="how-to-get" smooth={true} duration={500}>Map</Link>
           </li>
         </ul>
