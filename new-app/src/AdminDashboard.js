@@ -44,21 +44,20 @@ const Dashboard = () => {
     setSelectedRoomId(roomId);
   };
   return (
-    <div className="container mx-auto px-4">
+    <div  className="relative min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(/${'keepdata.jpg'})` }}>
+    <div className="container mx-auto px-4 bg-gray-100 min-h-screen bg-opacity-80">
+      <div className="bg-transparent bg-opacity-10 absolute inset-0"></div>
       {isAdmin ? (
-        <div className="text-center">
+        <div className="relative text-center py-8">
           <h2 className="text-3xl font-semibold text-gray-900 mb-4">Admin Dashboard</h2>
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleLogout}>Logout</button>
           <div className="my-6">
-            <h3 className="text-2xl font-semibold text-gray-900 mb-2">Modify Room Details</h3>
             <ModifyRoomDetails onRoomSelect={handleRoomSelection} selectedRoomId={selectedRoomId} />
           </div>
           <div className="my-6">
-            <h3 className="text-2xl font-semibold text-gray-900 mb-2">Add New Room</h3>
             <AddRoom />
           </div>
           <div className="my-6">
-            <h3 className="text-2xl font-semibold text-gray-900 mb-2">Add Promotion</h3>
             <AddPromotion />
           </div>
         </div>
@@ -66,35 +65,9 @@ const Dashboard = () => {
         <p className="text-2xl text-gray-600">Loading...</p>
       )}
     </div>
-  );
-  
-  
-  
-  
-
-  return (
-    <div className="flex justify-center items-center h-screen">
-      {isAdmin ? (
-        <div className="text-center flex flex-col"> {/* Add flex and flex-col classes */}
-          <h2 className="text-2xl font-bold mb-4">Admin Dashboard</h2>
-          <div className="mb-4"> {/* Move the logout button to a separate div */}
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleLogout}>Logout</button>
-          </div>
-          <div className="mt-4">
-            <ModifyRoomDetails onRoomSelect={handleRoomSelection} selectedRoomId={selectedRoomId} />
-          </div>
-          <div className="mt-4">
-            <AddRoom />
-          </div>
-          <div className="mt-4">
-            <AddPromotion />
-          </div>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
     </div>
   );
+  
 };
 
 export default Dashboard;
