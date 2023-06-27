@@ -18,7 +18,7 @@ const AboutUsPage = () => {
           </p>
         </div>
       </div>
-      <div className="contact_info">
+      <div className="contact_info pb-8">
         <h3 className="text-2xl text-black mb-2">Contact Us</h3>
         <p className="text-black text-lg">Uzi Cohen: 0507768123</p>
         <p className="text-black text-lg">Osnat Cohen: 0507768135</p>

@@ -1,24 +1,24 @@
 import React from 'react';
-// import ReactDOM from 'react-dom/client';
-import {render} from 'react-dom';
+import ReactDOM from 'react-dom/client';
+// import {render} from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-
-const root = document.getElementById('root');
-render(
-    <React.StrictMode>
-    <App/>
-    </React.StrictMode>
-    ,
-    root);
+// const root = document.getElementById('root');
+// render(
+//     <React.StrictMode>
+//     <App/>
+//     </React.StrictMode>
+//     ,
+//     root);
 // This version avoids the duplicate console.logs.
-// const root = ReactDOM.createRoot(document.getElementById('root'));
-// root.render(
-
-//     <App />
-// );
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+<React.StrictMode>
+    <App />
+    </React.StrictMode>
+);
 
 
 // This is the original version, need a good reason to use it.

@@ -5,7 +5,7 @@ const RoomCard = ({ room }) => {
   const { name, type, description, images } = room;
 
   return (
-    <div className="relative w-72 h-160 rounded overflow-hidden shadow-lg flex flex-col justify-between items-center mx-auto my-8 ">
+    <div className="relative w-72 h-160 rounded overflow-hidden shadow-lg flex flex-col justify-between items-center mx-auto my-8 bg-gray-200 bg-opacity-50">
       <div className="relative w-full h-3/5">
         {images.length > 0 && (
           <div className="max-w-screen-lg mx-auto h-0 pb-[75%] overflow-hidden relative flex items-center justify-center">

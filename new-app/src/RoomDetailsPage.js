@@ -67,6 +67,8 @@ const RoomDetailsPage = () => {
     // This region of the code should be removed.
     // Handling overlapping bookings is currently done via the DatePicker "object".
     //////////////////////////////////////////////////////////////////////////
+    // * For now decided to keep it, an extra check could be useful if user inspects element away the forbidden datepicker element.
+
 
     console.log("Calling bookings api for checking for overlap!")
     // Check if room is available for selected dates
@@ -84,9 +86,6 @@ const RoomDetailsPage = () => {
       console.log('condition state: ' + (booking.name === room.name && !(bookingEndDate > selectedStartDate || bookingStartDate < selectedEndDate)));
       return (
         booking.name === room.name && 
-        // bookingenddate > selectedstartdate OR bookingstartdate < selectedenddate
-        //!(bookingEndDate > selectedStartDate || bookingStartDate < selectedEndDate)
-        // .you know what. is obviously incapable of devising  condition.
         checkOverlapBtwnTwoDateRanges(selectedStartDate, selectedEndDate, bookingStartDate, bookingEndDate)
       );
 
@@ -97,7 +96,6 @@ const RoomDetailsPage = () => {
     if (overlappingBookings.length > 0) {
       setPopupMessage('The room is not available for the selected dates.');
       setShowPopup(true);
-      // alert('The room is not available for the selected dates.');
       return;
     }
     else{
@@ -110,13 +108,11 @@ const RoomDetailsPage = () => {
     console.log("start date: " + startDate + " curernt dlate: " + todayDate);
 
     if(!(startDate.getTime() >= todayDate.getTime())){
-      // alert('Please choose a future date!');
       setPopupMessage('Please choose a future date!');
       setShowPopup(true);
       return;
     }
     if(startDate.getTime() > endDate.getTime()){
-      // alert('End date must be after start date!');
       setPopupMessage('End date must be after start date!');
       setShowPopup(true);
       return;
@@ -137,14 +133,14 @@ const RoomDetailsPage = () => {
         totalCost: totalCost,
       });
       // alert(`Booking submitted successfully! Total cost: ${totalCost}. Please contact us by phone.`);
-      setPopupMessage(`Booking submitted successfully! Total cost: ${totalCost}. Please contact us by phone.`);
+      setPopupMessage(`Booking submitted successfully! Total cost: ${(numOfPeople<=2 ? totalCost : (totalCost + 100 * (numOfPeople-2)))}.
+       Please contact us by phone.`);
       setShowPopup(true);
       setIsGoodResponse(true);
       console.log("Booking created, response: " + JSON.stringify( bookingResponse ));
     } catch (error) {
       console.error('Failed to submit booking', error);
-      // alert('Failed to submit booking');
-      setPopupMessage('Failed to submit booking! Try contacting us!');
+      setPopupMessage('Failed to submit booking! Please contact us!');
       setShowPopup(true);
     }
   };
