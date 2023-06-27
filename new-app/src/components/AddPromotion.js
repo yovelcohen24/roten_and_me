@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Popup from './PopUp';
 
 const AddPromotion = () => {
     const [promotionTitle, setPromotionTitle] = useState('');
     const [promotionDescription, setPromotionDescription] = useState('');
     const [inputValidation, setInputValidation] = useState('');
+
+    // popup:
+    const [showPopup, setShowPopup] = useState(false);
+    const [successfulSub, setSuccessfulSub] = useState(false);
+
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
@@ -30,10 +36,14 @@ const AddPromotion = () => {
         try {
           const response = await axios.post((process.env.REACT_APP_API_URL || "http://localhost:4000")+ '/api/promotions', newPromotion);
           console.log('Promotion created:', response.data);
+          setShowPopup(true);
+          setSuccessfulSub(true);
           // Handle success or perform any necessary actions
         } catch (error) {
           console.error('Failed to create promotion:', error);
           // Handle the error response or display an error message
+          setShowPopup(true);
+          setSuccessfulSub(false);
         }
    
         // Reset the form inputs
@@ -79,9 +89,17 @@ const AddPromotion = () => {
             >
               Submit
             </button>
+            <div className="h-10">
+          <p className="mt-2 text-red-500 antialiased font-semibold drop-shadow">{inputValidation}</p>
+          </div>
           </form>
-      
-          <p className="mt-4">{inputValidation}</p>
+          {
+            showPopup && 
+            <Popup 
+            message={successfulSub?"Promotion successfully inserted!" : "Operation failed!"} 
+            onClose={() => setShowPopup(false)} 
+            isGoodResponse={successfulSub} />
+          }
         </div>
       );
       
