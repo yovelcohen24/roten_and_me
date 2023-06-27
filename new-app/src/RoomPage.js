@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import RoomCard from './RoomCard';
+import RoomCard from './components/RoomCard';
 import './roompage.css';
 
 
@@ -34,7 +34,7 @@ const RoomsPage = () => {
       ></div>
       <div className="relative py-8 flex flex-col items-center justify-center">
         <h2 className="text-3xl font-semibold mb-4">Our Rooms</h2>
-        <div className="flex flex-wrap justify-center gap-4 bg-blue bg-opacity-90">
+        <div className="flex flex-wrap justify-center gap-4 ">
           {rooms.map((room) => (
             <RoomCard key={room._id} room={room} className="w-1/4" />
           ))}
