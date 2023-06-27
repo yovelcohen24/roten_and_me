@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Popup from './PopUp';
 
 const AddRoom = () => {
     const [roomName, setRoomName] = useState('');
@@ -9,6 +10,16 @@ const AddRoom = () => {
     const [description, setDescription] = useState('');
     const [salePriceFactor, setSalePriceFactor] = useState(1);
     const [inputValidation, setInputValidation] = useState('');
+
+    const [showPopup, setShowPopup] = useState(false);
+    const [popUpMessage, setPopUpMessage] = useState('');
+    const [successfulSub, setSuccessfulSub] = useState(false);
+
+    const popUpSetter = (isShown, msg, isSuccess) => {
+      setShowPopup(isShown);
+      setPopUpMessage(msg);
+      setSuccessfulSub(isSuccess);
+    }
 
     const handleFormSubmit = async (e) => {
       console.log("IMAGES: " + images);
@@ -50,9 +61,11 @@ const AddRoom = () => {
           const response = await axios.post((process.env.REACT_APP_API_URL || "http://localhost:4000")+ '/api/rooms', newRoom);
           console.log('Room created:', response.data);
           // Handle success or perform any necessary actions
+          popUpSetter(true, `Room ${roomName} created!`, true);
         } catch (error) {
           console.error('Failed to create room:', error);
           // Handle the error response or display an error message
+          popUpSetter(true, `Failed to create room ${roomName}!`, false);
         }
         
         // Reset the form inputs
@@ -159,9 +172,16 @@ const AddRoom = () => {
             >
               Submit
             </button>
+            
+            <div className="h-10">
+          <p className="mt-2 text-red-500 antialiased font-semibold drop-shadow">{inputValidation}</p>
+          </div>
           </form>
       
-          <p className="mt-4">{inputValidation}</p>
+          
+          {
+            showPopup && <Popup message={popUpMessage} onClose={() => popUpSetter(false,'',false)} isGoodResponse={successfulSub} />
+          }
         </div>
       );
       

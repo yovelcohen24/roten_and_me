@@ -158,7 +158,7 @@ const RoomDetailsPage = () => {
   return (
     <div className="room-details-page flex justify-center">
       <style>{datePickerStyles}</style>
-      <div className="w-full sm:w-1/2 lg:min-w-400px bg-white rounded-lg shadow-lg p-6">
+      <div className="w-full sm:w-1/2 lg:min-w-400px bg-white rounded-lg shadow-lg p-6 bg-opacity-80">
         <RoomDetails room={room} />
         <BookingForm
           startDate={startDate}
