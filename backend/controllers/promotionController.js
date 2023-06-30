@@ -1,4 +1,8 @@
 const Promotion = require('../models/promotion');
+/*
+    title: String,
+    description: String,
+*/
 
 const getAllPromotions = async (req, res) => {
     try {
@@ -30,8 +34,26 @@ const addPromotion = async (req, res) => {
       }
 }
 
+const removePromotion = async (req, res) => {
+  const {
+    _id,
+  } = req.params;
+  try{
+    const dbRes = await Promotion.findByIdAndDelete(_id);
+    if(dbRes){
+      res.status(200).json(dbRes);
+    }else{
+      res.status(404).json({ error: 'Could not find promotion'});
+    }
+  }
+  catch(error){
+    console.log(error);
+    res.status(500).json({ error:'Deletion failed for promotion id = ' + _id});
+  }
+}
+
 module.exports = {
     getAllPromotions,
     addPromotion,
+    removePromotion,
 };
-  

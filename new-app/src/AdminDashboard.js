@@ -4,6 +4,7 @@ import ModifyRoomDetails from './components/ModifyRoomDetails';
 import AddRoom from './components/AddRoom';
 import AddPromotion from './components/AddPromotion';
 import './Dashboard.css';
+import RemovePromotion from './components/RemovePromotion';
 const Dashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [selectedRoomId, setSelectedRoomId] = useState(null);
@@ -61,6 +62,9 @@ const Dashboard = () => {
           </div>
           <div className="my-6">
             <AddPromotion />
+          </div>
+          <div className="my-6">
+            <RemovePromotion />
           </div>
         </div>
       ) : (
