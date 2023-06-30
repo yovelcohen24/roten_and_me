@@ -13,30 +13,32 @@ const LoginPage = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post((process.env.REACT_APP_API_URL || "http://localhost:4000")+ '/api/admin/login', {
-        username,
-        password,
-      });
+      console.log('Logging in...'); // Check if the login function is being called
+
+      const response = await axios.post(
+        (process.env.REACT_APP_API_URL || 'http://localhost:4000') + '/api/admin/login',
+        {
+          username,
+          password,
+        }
+      );
+
+      console.log('Login response:', response); // Check the response received from the API
 
       // Handle successful login, set authentication status, etc.
-      // Store the authentication status in localStorage
-      localStorage.setItem('isAdminAuthenticated', 'true');
-
-      // Store the current date and time
-      const currentDate = new Date().toISOString();
-      localStorage.setItem('loginDateTime', currentDate);
-
-      // Store the user's IP address
-      const userIP = response.data.ip; // Assuming the server returns the IP in the response
-      localStorage.setItem('userIP', userIP);
-
+      // Store the JWT token in an HTTP-only cookie
+      // document.cookie = `token=${response.data.token}; Expires=${new Date(Date.now() + 86400000).toUTCString()}; Secure; HttpOnly`;
+      localStorage.setItem('token', response.data.token);
       // Redirect to admin dashboard
+      console.log('Redirecting to admin dashboard...'); // Check if the redirect is being triggered
       history.push('/admin/dashboard');
     } catch (error) {
       // Handle login error
+      console.error('Login error:', error); // Check if there are any error messages in the console
       setError('Invalid username or password');
     }
   };
+
 
   return (
     <div className="login-container">
