@@ -38,7 +38,7 @@ app.use('/api', routes);
 
 // Serve the React app for all other routes
 app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, 'react-app', 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'react-app', 'build'));
 });
 
 // Start the server
