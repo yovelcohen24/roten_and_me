@@ -53,7 +53,7 @@ const BookingForm = ({ startDate, endDate, bookedDates, handleBookingSubmit, set
         </div>
         <div className="mb-4">
           <div className="flex justify-between mb-2 font-medium">
-            <label htmlFor="numberOfPeople">People over 2 years old</label>
+            <label htmlFor="numberOfPeople">Guests over 2 years old</label>
           </div>
           <div className="flex justify-center">
             <input
