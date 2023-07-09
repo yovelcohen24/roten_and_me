@@ -1,52 +1,7 @@
 import React from 'react';
 const RoomDetails = ({ room }) => {
-  const [imageDimensions, setImageDimensions] = React.useState([]);
   const [selectedImageIndex, setSelectedImageIndex] = React.useState(0);
   const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
-
-  React.useEffect(() => {
-    const loadImageDimensions = async () => {
-      const dimensions = await Promise.all(
-        room.images.map((image) => {
-          return new Promise((resolve) => {
-            const img = new Image();
-            img.src = `${process.env.PUBLIC_URL}/${image}`;
-            img.onload = () => {
-              const { width, height } = calculateResizedDimensions(
-                img.naturalWidth,
-                img.naturalHeight,
-                500,
-                500
-              );
-              resolve({ width, height });
-            };
-          });
-        })
-      );
-      setImageDimensions(dimensions);
-    };
-
-    loadImageDimensions();
-  }, [room.images]);
-
-  const calculateResizedDimensions = (originalWidth, originalHeight, maxWidth, maxHeight) => {
-    const aspectRatio = originalWidth / originalHeight;
-
-    let width = originalWidth;
-    let height = originalHeight;
-
-    if (width > maxWidth) {
-      width = maxWidth;
-      height = width / aspectRatio;
-    }
-
-    if (height > maxHeight) {
-      height = maxHeight;
-      width = height * aspectRatio;
-    }
-
-    return { width, height };
-  };
 
 
   const handleThumbnailClick = (index) => {
@@ -68,7 +23,7 @@ const RoomDetails = ({ room }) => {
     setIsImagePopupOpen(false);
   };
   return (
-    <div className="bg-gray-100">
+    <div>
       {isImagePopupOpen && (
         <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-75 z-50" onClick={closeImagePopup}>
           <div className="max-w-3xl mx-auto">
@@ -80,17 +35,19 @@ const RoomDetails = ({ room }) => {
           </div>
         </div>
       )}
-    
-    <div className="container mx-auto px-4 py-8">
+
+      <div className="container mx-auto px-4 py-8">
         <div className="max-w-3xl mx-auto text-center">
-          <div className="flex flex-col md:flex-row justify-center md:items-center mb-8">
-            <h2 className="text-4xl md:text-5xl font-bold mb-2 md:mr-8">{room.name}</h2>
-            <p className="text-2xl">Price: {room.costPerDay}</p>
+          <div className="flex flex-col md:flex-row justify-center md:items-center mb-8 justify-center">
+            <h2 className="text-4xl md:text-5xl font-bold mb-2 md:mr-8 text-center text-white">
+              <span className="bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text">
+                {room.name}
+              </span>
+            </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex flex-col md:flex-row bg-white rounded-lg shadow-lg p-4">
               <p className="text-lg">Description: {room.description}</p>
-              
             </div>
             <div className="carousel-container bg-white rounded-lg shadow-lg p-4">
               <div className="carousel">
@@ -110,9 +67,8 @@ const RoomDetails = ({ room }) => {
                   {room.images.map((image, index) => (
                     <div
                       key={index}
-                      className={`aspect-w-16 aspect-h-9 overflow-hidden mx-2 cursor-pointer ${
-                        index === selectedImageIndex && 'border-2 border-blue-500'
-                      }`}
+                      className={`aspect-w-16 aspect-h-9 overflow-hidden mx-2 cursor-pointer ${index === selectedImageIndex && 'border-2 border-blue-500'
+                        }`}
                       onClick={() => handleThumbnailClick(index)}
                     >
                       <div className="thumbnail-image-container">
@@ -149,8 +105,21 @@ const RoomDetails = ({ room }) => {
               </div>
             </div>
           </div>
-          <p className="text-lg md:self-end py-8">Type: {room.type}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
+            <p className="text-lg md:self-center">Type: {room.type}</p>
+            <div className="md:self-center mt-4 md:mt-0 md:ml-4">
+              <div className="relative">
+                <p className="text-2xl font-semibold bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white px-4 py-2 rounded-full text-center group">
+                  Price: {room.costPerDay} (ILS)
+                  <span className="text-sm absolute top-full left-1/2 transform -translate-x-1/2 bg-white text-black px-4 py-2 rounded-lg shadow-md opacity-0 invisible transition-opacity duration-300 ease-in-out group-hover:opacity-100 group-hover:visible">
+                    Up to 2 people. Extra guests are 100 ILS per person.
+                  </span>
+                </p>
+              </div>
+            </div>
 
+
+          </div>
         </div>
       </div>
     </div>

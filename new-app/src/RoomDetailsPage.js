@@ -62,14 +62,6 @@ const RoomDetailsPage = () => {
     // Calculate total cost
     const totalCost = numberOfDays * room.costPerDay;
 
-    //////////////////////////////////////////////////////////////////////////
-    // Very important for the future: 
-    // This region of the code should be removed.
-    // Handling overlapping bookings is currently done via the DatePicker "object".
-    //////////////////////////////////////////////////////////////////////////
-    // * For now decided to keep it, an extra check could be useful if user inspects element away the forbidden datepicker element.
-
-
     console.log("Calling bookings api for checking for overlap!")
     // Check if room is available for selected dates
     const bookingsResponse = await axios.get((process.env.REACT_APP_API_URL || "http://localhost:4000") + `/api/bookings/${room.name}`);
@@ -117,10 +109,6 @@ const RoomDetailsPage = () => {
       setShowPopup(true);
       return;
     }
-    //////////////////////////////////////////////////////////////////////////
-    // End of code-area-to-be-removed
-    //////////////////////////////////////////////////////////////////////////
-
 
     // Submit booking
     try {
@@ -133,7 +121,7 @@ const RoomDetailsPage = () => {
         totalCost: totalCost,
       });
       // alert(`Booking submitted successfully! Total cost: ${totalCost}. Please contact us by phone.`);
-      setPopupMessage(`Booking submitted successfully! Total cost: ${(numOfPeople<=2 ? totalCost : (totalCost + 100 * (numOfPeople-2)))}.
+      setPopupMessage(`Booking submitted successfully! Total cost: ${(numOfPeople<=2 ? totalCost : (totalCost + 100 * (numOfPeople-2)))} (ILS).
        Please contact us by phone.`);
       setShowPopup(true);
       setIsGoodResponse(true);
@@ -158,7 +146,7 @@ const RoomDetailsPage = () => {
   return (
     <div className="room-details-page flex justify-center">
       <style>{datePickerStyles}</style>
-      <div className="w-full sm:w-1/2 lg:min-w-400px bg-white rounded-lg shadow-lg p-6 bg-opacity-80">
+      <div className="w-full sm:w-1/2 lg:min-w-400px bg-white rounded-lg shadow-lg p-6 bg-opacity-50">
         <RoomDetails room={room} />
         <BookingForm
           startDate={startDate}
